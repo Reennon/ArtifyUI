@@ -1,0 +1,32 @@
+﻿@page "/counter"
+@inject HttpClient Http
+
+<h1>Counter</h1>
+
+<p>Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+<button class="btn btn-primary" @onclick="@SendSmoke">Click me Smoke</button>
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+        
+    }
+
+     async Task
+         //Task<HttpResponseMessage> 
+         SendSmoke()
+        =>
+            Console.WriteLine( await Http.GetStringAsync(@"http://127.0.0.1:4000/Artify/smoke"));
+        /*await Http.SendAsync(new HttpRequestMessage()
+        {
+            Method = HttpMethod.Get, RequestUri = new Uri(@"127.0.0.1:4999/Artify/smoke")
+        });*/
+    
+
+}
