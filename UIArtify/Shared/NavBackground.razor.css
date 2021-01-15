@@ -1,0 +1,16 @@
+﻿.nav-menu-background{
+    background-color:rgba(0,0,0,1);
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    z-index: 100;
+    left:0;
+    top:0;
+    backdrop-filter: blur(100px);
+    -webkit-backdrop-filter: blur(100px);
+    /*-webkit-filter: blur(10px);*/
+}
+.nav-menu-foreground{
+    color:white;
+    z-index: 110;
+}
