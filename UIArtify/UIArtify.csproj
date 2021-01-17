@@ -16,7 +16,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Include="wwwroot\css\bootstrap\toolber.css" />
       <None Include="wwwroot\js\EditorToolbar.razor.js" />
     </ItemGroup>
 
