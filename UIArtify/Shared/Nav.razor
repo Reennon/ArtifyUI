@@ -1,0 +1,74 @@
+﻿@using Microsoft.JSInterop.Implementation
+@inject IJSRuntime JSRuntime
+@implements IAsyncDisposable
+
+<header class="fullwidth">
+    <nav class=" navbar navbar-absolute  navbar-fixed-top  navigation" id="" style="background-color: black">
+        <div class="container ">
+
+            <!-- Toggle button of Fullscreen menu -->
+            <button class="fullscreen-toggle-btn lines-simple-shadow" style="margin-top:6vh">
+                <span class="lines negative"></span>
+            </button>
+
+        </div><!-- end container -->
+
+    </nav><!-- end navbar -->
+
+    <div class="fullscreen-menu bg-black">
+        <div class="fullscreen-menu-wrapper">
+            <div class="position-middle">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+                            <ul class="list-unstyled">
+                                <li><h1 class="font-weight-light"><a class="hyperlink-5" href="">Домівка</a></h1></li>
+                                <li><h1 class="font-weight-light"><a class="hyperlink-5"
+                                                                     href="Pages/About/About-us-5.html">Про нас</a></h1>
+                                </li>
+                                <li><h1 class="font-weight-light"><a class="hyperlink-5" href="buy.html">Купити</a></h1>
+                                </li>
+                                <li><h1 class="font-weight-light"><a class="hyperlink-5" href="sell.html">Продати</a>
+                                </h1></li>
+                                <li><h1 class="font-weight-light"><a class="hyperlink-5" href="profile.html">Профіль</a>
+                                </h1></li>
+                                <li><h1 class="font-weight-light"><a class="hyperlink-5"
+                                                                     href="Pages/Contact/Contact-Minimal.html">Підтримка</a>
+                                </h1></li>
+                            </ul>
+                        </div>
+                    </div><!-- end row -->
+                </div><!-- end container -->
+            </div><!-- end position-middle -->
+        </div><!-- end fullscreen-menu-wrapper -->
+    </div><!-- end fullscreen-menu -->
+</header>
+
+
+
+@code {
+    private string name;
+    // Load the module and keep a reference to it
+    // You need to use .AsTask() to convert the ValueTask to Task as it may be awaited multiple times
+    private Task<IJSObjectReference> _module;
+    private Task<IJSObjectReference> Module => _module ??= JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Nav.razor.js").AsTask();
+
+    private JSObjectReference Jsmodule { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Jsmodule = await JSRuntime.InvokeAsync<JSObjectReference>("import", "./Nav.razor.js");
+    }
+    async Task Submit()
+    {
+        var module = await Module;
+        await module.InvokeVoidAsync("sayHi", name);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_module != null)
+            await (await _module).DisposeAsync(); 
+        
+    }
+}

@@ -6,10 +6,12 @@ using System.Reflection.Metadata;
 using System.Threading.Tasks;
 using System.Text;
 using HttpClientService.Blazor;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using RazorComponentsPreview;
 
 namespace UIArtify
 {
@@ -20,9 +22,10 @@ namespace UIArtify
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
             builder.Services.AddScoped(
-                sp => new HttpClient {BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)});
+                sp => new {BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)});
 
             await builder.Build().RunAsync();
         }
+
     }
 }
