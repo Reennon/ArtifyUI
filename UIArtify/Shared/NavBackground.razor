@@ -1,47 +1,37 @@
-﻿@using Microsoft.JSInterop.Implementation
-@inject IJSRuntime JsRuntime
+﻿@inject IJSRuntime JSRuntime
 @implements IAsyncDisposable
 
-@if (!_clicked)
-{
-    <div class="nav-menu-background" filter="blur" @onclick="Click">
+@if (!true){
+    <div class="nav-menu-background" filter="blur">
         <div class="container nav-menu-foreground">
             <NavMenu/>
         </div>
     </div>
+    
 }
-
+<div class="rose">1</div>
+<input @bind="name" />
+<button @onclick="Submit">Submit</button>
+<button @onclick="async()=>await DisposeAsync()">Dispose</button>
 
 @code {
-    Boolean _clicked;
-
-    void Click()
-    {
-        Console.WriteLine(_clicked);
-        _clicked = !_clicked;
-    }
-    private string _name;
-    // Load the module and keep a reference to it
-    // You need to use .AsTask() to convert the ValueTask to Task as it may be awaited multiple times
+    
+    private string name;
     private Task<IJSObjectReference> _module;
-    private Task<IJSObjectReference> Module => _module ??= JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/isolated/NavBackground.razor.js").AsTask();
-
-    private JSObjectReference JsModule { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {
-        JsModule = await JsRuntime.InvokeAsync<JSObjectReference>("import", "./js/isolated/NavBackground.razor.js");
-    }
+    private Task<IJSObjectReference> Module => JSRuntime.InvokeAsync<IJSObjectReference>("import", "./js/isolated/NavBackground.razor.js").AsTask();
+    
+    
     async Task Submit()
     {
-        var module = await Module;
-        await module.InvokeVoidAsync("sayHi", _name);
+        await (await Module).InvokeVoidAsync("empty", name);
     }
 
     public async ValueTask DisposeAsync()
     {
-        if (_module != null)
-            await (await _module).DisposeAsync(); 
-        
+        if (Module != null)
+        {
+            await (await Module).DisposeAsync();
+        }
     }
+    
 }

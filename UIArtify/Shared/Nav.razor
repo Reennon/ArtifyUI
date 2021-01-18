@@ -58,6 +58,7 @@
     protected override async Task OnInitializedAsync()
     {
         Jsmodule = await JSRuntime.InvokeAsync<JSObjectReference>("import", "./Nav.razor.js");
+        
     }
     async Task Submit()
     {
