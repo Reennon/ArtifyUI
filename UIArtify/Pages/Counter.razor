@@ -1,6 +1,8 @@
 ﻿@page "/counter"
 @inject HttpClient Http
 
+
+
 <h1>Counter</h1>
 
 <p>Current count: @currentCount</p>
@@ -22,7 +24,7 @@
          //Task<HttpResponseMessage> 
          SendSmoke()
         =>
-            Console.WriteLine( await Http.GetStringAsync(@"http://127.0.0.1:4000/Artify/smoke"));
+            Console.WriteLine( await Http.GetStringAsync(@"http://localhost:4000/Artify/smoke"));
         /*await Http.SendAsync(new HttpRequestMessage()
         {
             Method = HttpMethod.Get, RequestUri = new Uri(@"127.0.0.1:4999/Artify/smoke")
