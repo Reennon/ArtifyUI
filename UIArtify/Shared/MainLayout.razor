@@ -1,17 +1,38 @@
 ﻿@inherits LayoutComponentBase
+@inject IJSRuntime jsRuntime
 
 <div class="page">
     <div class="sidebar">
         <NavMenu/>
     </div>
-
     <div class="main">
         <div class="top-row px-4">
-            <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
+            <a href="#" class="ml-md-auto" @onclick="ShowNavBar">About</a>
         </div>
 
+        @if (_doesNavBarIsActive)
+        {
+            <NavBackground/>
+            
+            
+                @* <div class="nav-menu-foreground" @onclick="ShowNavBar" style="position:absolute;z-index: 10000;color: white">menu</div> *@
+        }
+        
         <div class="content px-4">
             @Body
         </div>
     </div>
+    
+
+
 </div>
+
+@code{
+    private static Boolean _doesNavBarIsActive;
+
+    void ShowNavBar()
+    {
+        _doesNavBarIsActive = !_doesNavBarIsActive;
+    }
+
+}

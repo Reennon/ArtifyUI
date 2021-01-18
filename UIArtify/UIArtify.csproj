@@ -12,12 +12,14 @@
         <PackageReference Include="Microsoft.DotNet.Watcher.Tools" Version="2.0.2" />
         <PackageReference Include="RazorComponentsPreview" Version="0.6.0" />
         <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
+        <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.76" />
         <Watch Include="**\*.razor" />
     </ItemGroup>
 
     <ItemGroup>
-      <None Include="wwwroot\css\bootstrap\toolber.css" />
-      <None Include="wwwroot\js\EditorToolbar.razor.js" />
+      <None Include="wwwroot\js\isolated\NavBackground.razor.js" />
     </ItemGroup>
+
+
 
 </Project>
