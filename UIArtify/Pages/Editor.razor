@@ -1,28 +1,2 @@
 ﻿@page "/editor"
-@inject HttpClient Http
-
-
-@inject HttpClient Http
-
-
-<h1 id="s1" bind="Name">Hello, world!</h1>
-<h1 id="s1" bind="Name">Hello, world!</h1>
-<h1 id="s1" bind="Name">Hello, world!</h1>
-<h1 id="s1" bind="Name">Hello, world!</h1>
-Welcome to your new app.33
-    hello world @ListConcat(new List<Int32>{1,2,3})
-<SurveyPrompt Title="How is Blazor working for you!!!!?"></SurveyPrompt>
-@code{
-
-    //public List<Int32> _list = new() {1, 2, 3};
-
-    String ListConcat(List<Int32> list)
-    {
-        return String.Join("", list);
-    }
-    
-
-
-}
-
-
+<EditorToolbar/>
