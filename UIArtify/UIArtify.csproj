@@ -17,6 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <None Include="wwwroot\js\EditorToolbar.razor.js" />
       <None Include="wwwroot\js\isolated\NavBackground.razor.js" />
     </ItemGroup>
 

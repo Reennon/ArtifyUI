@@ -1,0 +1,25 @@
+﻿
+@keyframes SideBarTextFadeIn {
+    from{
+        opacity: 0;
+        transform: translateX(50px);
+        
+    }
+    to{
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
+
+
+@keyframes SideBarTextFadeOut {
+    from{
+        opacity: 1;
+        transform: translateX(0px);
+    }
+    to{
+        opacity: 0;
+        transform: translateX(50px);
+    }
+}
+
