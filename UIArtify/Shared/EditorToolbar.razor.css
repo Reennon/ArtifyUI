@@ -36,6 +36,7 @@ nav{
     text-decoration:none;
     justify-content: center;
     display: flex;
+    text-align: center;
     align-items: center;
     letter-spacing: 0.255em;
     color: #000000;
@@ -70,7 +71,7 @@ nav{
 
 }
 
-@media screen and (max-width:728px){
+@media screen and (max-width:1000px){
     body{
         overflow-x: hidden ;
     }
@@ -111,4 +112,5 @@ nav{
     display: flex;  
     transform: translateX(0%);
     transition: transform 0.2s ease-in ;
+    
 }

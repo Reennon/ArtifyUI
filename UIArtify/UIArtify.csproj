@@ -21,6 +21,10 @@
       <None Include="wwwroot\js\isolated\NavBackground.razor.js" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="wwwroot\sample-data\image" />
+    </ItemGroup>
+
 
 
 </Project>
