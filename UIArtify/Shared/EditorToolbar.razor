@@ -1,5 +1,3 @@
-﻿@using Microsoft.JSInterop.Implementation
-
 
 @inject IJSRuntime JsRuntime
 
@@ -50,12 +48,12 @@
 
 @code
 {
-    
 
     
     private Task<IJSObjectReference> _module;
     private Task<IJSObjectReference> Module => _module ??= JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/isolated/EditorToolbar.razor.js").AsTask();
     async Task SideBar()
+
     {
         var module = await Module;
         await module.InvokeVoidAsync("navSlide");
@@ -70,6 +68,6 @@
         }
     }
 
-    
+ 
 }
 
