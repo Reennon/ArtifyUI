@@ -1,0 +1,36 @@
+﻿
+@inject IJSRuntime JsRuntime
+
+<div @onclick="DrugWindow" id="@StyleId" >
+  <div id="mydivheader">@StyleId</div>
+  <p>hhhhhhhh</p>
+  <p>hhhhhhhh</p>
+  <p>hhhhhhhh</p><p>hhhhhhhh</p>
+
+</div>
+
+@code {
+  [Parameter]
+  public String StyleId { get; set; }
+  [Parameter]
+  public String ParentId { get; set; }  
+  private Task<IJSObjectReference> _module;
+  private Task<IJSObjectReference> Module => _module ??= JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/isolated/DraggableWindow.js").AsTask();
+  
+  async Task DrugWindow()
+  {
+    
+    var module = await Module;
+    await module.InvokeVoidAsync("dragElement",ParentId,StyleId);
+  }
+    
+    
+  public async ValueTask DisposeAsync()
+  {
+    if (_module != null)
+    {
+      await (await _module).DisposeAsync();
+    }
+  }
+
+}
