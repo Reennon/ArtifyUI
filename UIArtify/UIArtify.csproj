@@ -21,6 +21,11 @@
       <None Include="wwwroot\js\isolated\NavBackground.razor.js" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Remove="Shared\Nav.razor" />
+      <Content Remove="Shared\NavBackground.razor" />
+    </ItemGroup>
+
 
 
 </Project>

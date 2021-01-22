@@ -1,38 +1,40 @@
-﻿@inherits LayoutComponentBase
-@inject IJSRuntime jsRuntime
+﻿@using UIArtify.Services
+@inherits LayoutComponentBase
+@inject NavState NavState
 
 <div class="page">
-    <div class="sidebar">
-        <NavMenu/>
-    </div>
+    @* <div class="sidebar"> *@
+    @*     <NavMenu/> *@
+    @* </div> *@
     <div class="main">
-        <div class="top-row px-4">
-            <a href="#" class="ml-md-auto" @onclick="ShowNavBar">About</a>
-        </div>
 
-        @if (_doesNavBarIsActive)
-        {
-            <NavBackground/>
+        <a href="#" class="ml-md-auto" @onclick="@(()=>NavState.Active = true)">About</a>
+        <h1>@(NavState.Active)</h1>
+        <NavBar />
+            
+            
+            
             
             
                 @* <div class="nav-menu-foreground" @onclick="ShowNavBar" style="position:absolute;z-index: 10000;color: white">menu</div> *@
-        }
+        
         
         <div class="content px-4">
             @Body
         </div>
     </div>
-    
-
-
 </div>
 
 @code{
-    private static Boolean _doesNavBarIsActive;
-
-    void ShowNavBar()
+    
+    protected override void OnInitialized()
     {
-        _doesNavBarIsActive = !_doesNavBarIsActive;
+        NavState.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        NavState.OnChange -= StateHasChanged;
     }
 
 }
