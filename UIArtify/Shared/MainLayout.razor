@@ -9,16 +9,22 @@
     <div class="main">
         <div id="nav-wrapper">
             <div class="container">
-                <div class="row" id="line">
-                    <div id="hamburger" @onclick="@(() => NavState.Active = true)">
-                        <span class="ham" id="top"></span>
-                        <span class="ham" id="middle"></span>
-                        <span class="ham" id="bottom"></span>
+                <div class="row row-no-padding no-gutters align-items-center" id="line">
+                    <div class="col-3 float-left">
+                        <div id="hamburger" @onclick="@(() => NavState.Active = true)">
+                            <span class="ham" id="top"></span>
+                            <span class="ham" id="middle"></span>
+                            <span class="ham" id="bottom"></span>
+                        </div>
+                    </div>
+                    <div class="col-9 float-right">
+                        <div id="logo">
+                            <span id="logo-text">ARTIF</span>Y
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <NavBar/>
 
 
@@ -31,6 +37,7 @@
 
     </div>
 </div>
+
 
 @code{
 

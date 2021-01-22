@@ -6,9 +6,6 @@
     z-index: 100;
     left: 0;
     top: 0;
-    backdrop-filter: blur(100px);
-    -webkit-backdrop-filter: blur(100px);
-    /*-webkit-filter: blur(10px);*/
 }
 
 .nav-menu-foreground {
@@ -56,6 +53,9 @@ h1 {
 }
 
 h1:hover {
+    color: whitesmoke;
+}
+h1:active {
     color: whitesmoke;
 }
 
