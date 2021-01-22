@@ -73,14 +73,17 @@ nav{
 
 }
 
+
 @media screen and (max-width:1000px){
-    body{
-        overflow-x: hidden ;
+    html, body {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        
     }
     nav{
         justify-content: left;
         
     }
+    
     .nav-links{
         position: absolute;
         right: 0;

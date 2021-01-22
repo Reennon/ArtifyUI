@@ -1,3 +1,4 @@
+@using System.Reflection.Metadata.Ecma335
 
 
 @inject IJSRuntime JsRuntime
@@ -29,18 +30,22 @@
 
 
     </ul>
-    <div class="burger" onclick="navSlide()">
+    <div class="burger" @onclick="SideBar">
         <div class="line1"></div>
         <div class="line2"></div>
         <div class="line3"></div>
     </div>
     <ul class=" nav navbar-nav">
     <li id="run" >
-        <div > <div  class="col">
-        <svg  width="30" height="30" fill="Black" class="bi bi-play" viewBox="0 0 15 15">
-            <path d="M10.804 8L5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"></path>
-        </svg>
-        </div></div>
+        <div>
+            <div class="col">
+                <svg width="75" height="75" viewBox="0 0 75 75" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="132" height="111" transform="matrix(1 0 0 -1 -16 81)" fill="black" fill-opacity="0.8"/>
+                        
+                </svg>
+
+            </div>
+        </div>
     </li>
     </ul>
 
@@ -50,12 +55,7 @@
 @code
 {
 
-    
-    private Task<IJSObjectReference> _module;
-    private Task<IJSObjectReference> Module => _module ??= JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/isolated/EditorToolbar.razor.js").AsTask();
-    async Task SideBar()
-    
-
+   
     
     private Task<IJSObjectReference> _module;
     private Task<IJSObjectReference> Module => _module ??= JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/isolated/EditorToolbar.razor.js").AsTask();
