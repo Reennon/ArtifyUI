@@ -2,31 +2,38 @@
 @inherits LayoutComponentBase
 @inject NavState NavState
 
-<div class="page">
-    @* <div class="sidebar"> *@
-    @*     <NavMenu/> *@
-    @* </div> *@
-    <div class="main">
 
-        <a href="#" class="ml-md-auto" @onclick="@(()=>NavState.Active = true)">About</a>
-        <h1>@(NavState.Active)</h1>
-        <NavBar />
-            
-            
-            
-            
-            
-                @* <div class="nav-menu-foreground" @onclick="ShowNavBar" style="position:absolute;z-index: 10000;color: white">menu</div> *@
-        
-        
-        <div class="content px-4">
+<div class="page">
+
+
+    <div class="main">
+        <div id="nav-wrapper">
+            <div class="container">
+                <div class="row" id="line">
+                    <div id="hamburger" @onclick="@(() => NavState.Active = true)">
+                        <span class="ham" id="top"></span>
+                        <span class="ham" id="middle"></span>
+                        <span class="ham" id="bottom"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <NavBar/>
+
+
+        @* <div class="nav-menu-foreground" @onclick="ShowNavBar" style="position:absolute;z-index: 10000;color: white">menu</div> *@
+
+
+        <div class="content container">
             @Body
         </div>
+
     </div>
 </div>
 
 @code{
-    
+
     protected override void OnInitialized()
     {
         NavState.OnChange += StateHasChanged;
