@@ -1,4 +1,3 @@
-﻿@using Microsoft.JSInterop.Implementation
 
 
 @inject IJSRuntime JsRuntime
@@ -30,7 +29,7 @@
 
 
     </ul>
-    <div class="burger" @onclick="SideBar">
+    <div class="burger" onclick="navSlide()">
         <div class="line1"></div>
         <div class="line2"></div>
         <div class="line3"></div>
@@ -50,6 +49,11 @@
 
 @code
 {
+
+    
+    private Task<IJSObjectReference> _module;
+    private Task<IJSObjectReference> Module => _module ??= JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/isolated/EditorToolbar.razor.js").AsTask();
+    async Task SideBar()
     
 
     
@@ -71,5 +75,7 @@
     }
 
     
+
+
 }
 

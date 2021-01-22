@@ -1,0 +1,74 @@
+﻿@using Microsoft.JSInterop.Implementation
+@using UIArtify.Services
+@inject NavState NavState
+
+
+@if (NavState.Active)
+{
+    <div class="nav-menu-background animation" @onclick="@(() => { NavState.Active = false; _firstLoad = false; })">
+        <div class="container-fluid nav-menu-foreground animation-scale position-middle">
+            <div class="row">
+                <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+                    <ul class="nav flex-column">
+                        <li class="nav-item px-3">
+                            <NavLink class="nav-link" href="" Match="NavLinkMatch.All" style="width: max-content">
+
+                                <h1>
+                                    <span class="underline">Home</span>
+                                </h1>
+
+                            </NavLink>
+                        </li>
+                        <li class="nav-item px-3">
+                            <NavLink class="nav-link " href="counter" style="width: max-content">
+
+                                <h1 >
+                                    <span class="underline">Counter</span>
+                                </h1>
+
+                            </NavLink>
+                        </li>
+                        <li class="nav-item px-3">
+                            <NavLink class="nav-link" href="fetchdata" style="width: max-content">
+
+                                <h1>
+                                    <span class="underline">Fetch Data</span>
+                                </h1>
+
+                            </NavLink>
+                        </li>
+                        <li class="nav-item px-3">
+                            <NavLink class="nav-link" href="editor" style="width: max-content">
+
+                                <h1>
+                                    <span class="underline">Editor</span>
+                                </h1>
+
+                            </NavLink>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else if (!_firstLoad)
+{
+    <div class="nav-menu-background animation-out"></div>
+}
+
+@code {
+
+    private Boolean _firstLoad = true;
+
+    protected override void OnInitialized()
+    {
+        NavState.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        NavState.OnChange -= StateHasChanged;
+    }
+
+}

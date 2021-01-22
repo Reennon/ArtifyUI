@@ -8,7 +8,9 @@ html, body {
 a, .btn-link {
     color: #0366d6;
 }
-
+.nav-menu-background:hover {
+    cursor: url(../images/cursor-white.png), auto;
+}
 .btn-primary {
     color: #fff;
     background-color: #1b6ec2;

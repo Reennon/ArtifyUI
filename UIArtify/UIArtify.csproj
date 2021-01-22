@@ -22,6 +22,11 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Content Remove="Shared\Nav.razor" />
+      <Content Remove="Shared\NavBackground.razor" />
+    </ItemGroup>
+
+    <ItemGroup>
       <Folder Include="wwwroot\sample-data\image" />
     </ItemGroup>
 
