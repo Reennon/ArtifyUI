@@ -1,10 +1,12 @@
 ﻿@inject IJSRuntime JsRuntime
 
-<div @onclick="DrugWindow" id="@StyleId">
-    <div class="row ">
-        <div id="mydivheader" class="col">Artifier</div>
-        <div id="collapse" class="col ">
-            <div class="line"></div>
+<div @onclick="DraggableWindow" id="@StyleId">
+    <div class="row row-no-padding no-gutters ">
+        <div class="my-div-header col-9">Artifier</div>
+        <div class="col-3 bg-black d-flex">
+
+            <div class="line justify-content-center align-self-center"></div>
+
         </div>
     </div>
     <div class="container">
@@ -14,8 +16,10 @@
 
 
 @code {
+
     [Parameter]
     public RenderFragment ChildContent { get; set; }
+
     [Parameter]
     public String StyleId { get; set; }
 
@@ -25,7 +29,7 @@
     private Task<IJSObjectReference> _module;
     private Task<IJSObjectReference> Module => _module ??= JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/isolated/DraggableWindow.js").AsTask();
 
-    async Task DrugWindow()
+    async Task DraggableWindow()
     {
         var module = await Module;
         await module.InvokeVoidAsync("dragElement", ParentId, StyleId);

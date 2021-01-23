@@ -1,4 +1,4 @@
-﻿#mydiv {
+﻿#file-manager {
     position: absolute;
     z-index: 9;
     background-color: #f1f1f1;
@@ -6,55 +6,41 @@
     border: 1px solid #d3d3d3;
 }
 
-#mydivheader {
-    font-family: Segoe UI;
+.my-div-header {
+    font-family: Segoe UI, serif;
     font-style: normal;
     font-weight: normal;
-    font-size: 24px;
+    
     line-height: 32px;
-    display: flex;
-    align-items: center;
-    text-align: center;
+    
     letter-spacing: 0.12em;
-    padding: 4px;
+
     cursor: move;
     z-index: 10;
     background-color: #D9D9D9;
     color: #000000;
-    position: relative;
-    left: 0;
+    text-align: left;
+
+    padding-left: 1rem;
 }
-.row{
-    justify-items: center;
-    align-content: center;
-    text-align: center;
-    margin-right: 0; 
-    margin-left: 0;
-}
+
 #collapse {
     background-color: black;
-    position: relative;
+
     color: white;
-    right: 0;
+
     cursor:pointer;
-    justify-items: center;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    max-width:4em;
+    
    
     
 }
+.bg-black{
+    background-color:black;
+}
 .line{
     width: 20px;
-    height: 2px;
-    position: relative;
-    top:50%;
-    left:20%;
-    justify-items: center;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
+    height: 1px;
+    margin:auto;
     background-color: white;
 }
 
@@ -71,7 +57,7 @@
     font-family: Segoe UI;
     font-style: normal;
     font-weight: normal;
-    font-size: 20px;
+    font-size: 18px;
     line-height: 27px;
     display: flex;
     position: relative;

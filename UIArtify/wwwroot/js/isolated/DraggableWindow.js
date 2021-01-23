@@ -1,14 +1,14 @@
 ﻿export function dragElement(BaseId,id) {
-    
-    var elmnt = document.getElementById(id);
-    var BaseElement =  document.getElementById(BaseId);
-    var pos1 = 50, pos2 = 0, pos3 = 0, pos4 = 0;
-    if (document.getElementById(elmnt.id + "header")) {
+
+    const element = document.getElementById(id);
+    const BaseElement = document.getElementById(BaseId);
+    let pos1 = 50, pos2 = 0, pos3 = 0, pos4 = 0;
+    if (document.getElementById(element.id + "header")) {
         
-        document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+        document.getElementById(element.id + "header").onmousedown = dragMouseDown;
     } else {
         /* otherwise, move the DIV from anywhere inside the DIV:*/
-        elmnt.onmousedown = dragMouseDown;
+        element.onmousedown = dragMouseDown;
     }
     
 
@@ -34,24 +34,24 @@
         pos4 = e.clientY;
         // set the element's new position:
         
-        if(( elmnt.offsetTop >= BaseElement.offsetTop) && ( elmnt.offsetTop + elmnt.offsetHeight <= BaseElement.offsetTop + BaseElement.offsetHeight)) {
-            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        if(( element.offsetTop >= BaseElement.offsetTop) && ( element.offsetTop + element.offsetHeight <= BaseElement.offsetTop + BaseElement.offsetHeight)) {
+            element.style.top = (element.offsetTop - pos2) + "px";
         }
-        else if( elmnt.offsetTop + elmnt.offsetHeight > BaseElement.offsetTop + BaseElement.offsetHeight){
-            elmnt.style.top = (BaseElement.offsetTop + BaseElement.offsetHeight - elmnt.offsetHeight- 1 ) + "px";
+        else if( element.offsetTop + element.offsetHeight > BaseElement.offsetTop + BaseElement.offsetHeight){
+            element.style.top = (BaseElement.offsetTop + BaseElement.offsetHeight - element.offsetHeight- 1 ) + "px";
         }
         else {
-            elmnt.style.top = (BaseElement.offsetTop + 1) + "px";
+            element.style.top = (BaseElement.offsetTop + 1) + "px";
         }
         
-        if(( elmnt.offsetLeft >= BaseElement.offsetLeft) && ( elmnt.offsetLeft + elmnt.offsetWidth <= BaseElement.offsetLeft + BaseElement.offsetWidth)) {
-            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        if(( element.offsetLeft >= BaseElement.offsetLeft) && ( element.offsetLeft + element.offsetWidth <= BaseElement.offsetLeft + BaseElement.offsetWidth)) {
+            element.style.left = (element.offsetLeft - pos1) + "px";
         }
-        else if( elmnt.offsetLeft + elmnt.offsetWidth > BaseElement.offsetLeft + BaseElement.offsetWidth){
-            elmnt.style.left = (BaseElement.offsetLeft + BaseElement.offsetWidth- 1 -elmnt.offsetWidth) + "px";
+        else if( element.offsetLeft + element.offsetWidth > BaseElement.offsetLeft + BaseElement.offsetWidth){
+            element.style.left = (BaseElement.offsetLeft + BaseElement.offsetWidth- 1 -element.offsetWidth) + "px";
         }
         else {
-            elmnt.style.left = (BaseElement.offsetLeft+ 1) + "px";
+            element.style.left = (BaseElement.offsetLeft+ 1) + "px";
         }
         
     }
