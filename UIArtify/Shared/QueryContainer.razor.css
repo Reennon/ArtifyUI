@@ -1,0 +1,37 @@
+﻿.query-holder{
+    min-width: 27rem;
+    background-color: #ffffff;
+
+    margin-left: 0.5rem ;
+    margin-right: 0.5rem;
+    margin-top:1.2rem;
+    
+    opacity: 0.8;
+}
+.bg-black{
+    background-color:#000000;
+}
+.query-text{
+    margin-top:0.7rem;
+    margin-bottom:0.7rem;
+    min-height:6rem;
+}
+.query-desc{
+    max-width:6rem;
+}
+.query-desc-text{
+
+
+    font-family: Segoe UI, serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 24px;
+    
+    letter-spacing: 0.12em;
+
+    color: #000000;
+    text-align: right;
+    margin-top: 0.7rem;
+    margin-right: 0.3rem;
+}

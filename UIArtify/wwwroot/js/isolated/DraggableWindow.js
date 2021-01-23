@@ -1,7 +1,7 @@
-﻿export function dragElement(BaseId,id) {
+﻿export async function dragElement(BaseId,id) {
 
-    const element = document.getElementById(id);
-    const BaseElement = document.getElementById(BaseId);
+    let element = document.getElementById(id);
+    let BaseElement = document.getElementById(BaseId);
     let pos1 = 50, pos2 = 0, pos3 = 0, pos4 = 0;
     if (document.getElementById(element.id + "header")) {
         
@@ -27,7 +27,7 @@
         e = e || window.event;
         e.preventDefault();
         // calculate the new cursor position:
-        
+        element.style.zIndex = "12";
         pos1 = pos3 - e.clientX;
         pos2 = pos4 - e.clientY;
         pos3 = e.clientX;
@@ -60,5 +60,6 @@
         /* stop moving when mouse button is released:*/
         document.onmouseup = null;
         document.onmousemove = null;
+        element.style.zIndex = "10";
     }
 }

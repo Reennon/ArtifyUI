@@ -1,10 +1,20 @@
 ﻿@page "/editor"
-<EditorToolbar/>
+<div class="container-fluid navbar-container">
+    <EditorToolbar/>
+</div>
 
-
-<div id="window-container" class="container-fluid">
-    <Window StyleId="file-manager" ParentId="window-container">
-        <ExplorerContainer/>
-    </Window>
-    
+<div class="container-fluid container-container">
+    <div id="window-container" class="container">
+        <Window StyleId="file-manager" ParentId="window-container" TabName=@("Artifier")>
+            <ExplorerContainer/>
+        </Window>
+        <Window StyleId="query-manager" ParentId="window-container" TabName=@("Some File") CloseButton="true">
+            <QueryContainer/>
+        </Window>
+        <Window StyleId="query-manager2" ParentId="window-container" TabName=@("Some File2") CloseButton="true">
+            <QueryContainer/>
+            <QueryContainer/>
+            <QueryContainer/>
+        </Window>
+    </div>
 </div>

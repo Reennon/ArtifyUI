@@ -1,27 +1,34 @@
-﻿#file-manager {
+﻿.window-holder {
     position: absolute;
     z-index: 9;
     background-color: #f1f1f1;
-    text-align: center;
-    border: 1px solid #d3d3d3;
+
+}
+
+.button {
+    max-width: 6rem;
+}
+
+#query-manager {
+    left: 5rem;
 }
 
 .my-div-header {
     font-family: Segoe UI, serif;
     font-style: normal;
     font-weight: normal;
-    
-    line-height: 32px;
-    
-    letter-spacing: 0.12em;
 
-    cursor: move;
+    line-height: 32px;
+
+    letter-spacing: 0.12em;
+    
     z-index: 10;
     background-color: #D9D9D9;
     color: #000000;
     text-align: left;
-
-    padding-left: 1rem;
+    cursor: default;
+    padding-left: 1.5rem;
+    font-size: 20px;
 }
 
 #collapse {
@@ -29,22 +36,67 @@
 
     color: white;
 
-    cursor:pointer;
-    
-   
-    
+
+
+
 }
-.bg-black{
-    background-color:black;
+
+.bg-black {
+    background-color: black;
+    transition: all 0.2s ease-out;
 }
-.line{
-    width: 20px;
+.bg-black:hover {
+    background-color: #4f4f4f;
+}
+.bg-red {
+    background-color: #000000;
+    transition: all 0.2s ease-out;
+}
+
+.bg-red:hover {
+    background-color: #A33A3A;
+}
+
+.line-holder {
+
+    margin: auto;
+
+}
+
+.line {
+    width: 1rem;
     height: 1px;
-    margin:auto;
+
     background-color: white;
 }
 
-.container{
+.x-mark {
+    position: relative;
+    height: 1rem; /* this can be anything */
+    width: 1rem;  /* ...but maintain 1:1 aspect ratio */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.x-mark::before,
+.x-mark::after {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 1px; /* cross thickness */
+    background-color: white;
+}
+
+.x-mark::before {
+    transform: rotate(45deg);
+}
+
+.x-mark::after {
+    transform: rotate(-45deg);
+}
+
+.container {
     position: relative;
     display: flex;
     background-color: rgba(0, 0, 0, 0.7);
@@ -53,7 +105,7 @@
     margin: 0;
 }
 
-.folder{
+.folder {
     font-family: Segoe UI;
     font-style: normal;
     font-weight: normal;
@@ -66,6 +118,7 @@
     margin: 7px;
     list-style: none;
 }
+
 .arrow-right {
     width: 0;
     height: 0;
@@ -73,5 +126,13 @@
     border-bottom: 10px solid transparent;
     border-left: 20px solid white;
     border-radius: 2px;
-    cursor: pointer;
+
+}
+.window-footer{
+    background-color:#D9D9D9;
+    min-height:0.5rem;
+}
+.content-wrapper{
+    padding-top: 0.4rem;
+    padding-bottom: 1.6rem;
 }
