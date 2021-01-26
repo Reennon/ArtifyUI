@@ -6,15 +6,16 @@
 }
 
 nav{
-   
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 8vh;
     background-color: #ffffff;
     z-index: 1;
-    padding-left: 10%;
-    padding-right: 10%;
+    padding-bottom: 1.1rem;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .nav-links{
@@ -94,8 +95,8 @@ nav{
         flex-direction: column;
         align-items: center;
         width: 50%;
-        transform: translateX(100%) ;
-        transition: transform 0.1s ease-in ;
+         width: 0% ;
+        transition: width 0.1s ease-in ;
         
     }
     .nav-links li div{
@@ -109,14 +110,45 @@ nav{
         
 
     }
+    .btn-toolbar{
+        height: 100%;
+        width: 100%;
+        position: relative;
+        justify-content: center
+    }
     .nav-links li {
         opacity: 0;
+        transform: translateX(-60px);
     }
 }
 
 .nav-active{
     display: flex;  
-    transform: translateX(0%);
-    transition: transform 0.2s ease-in ;
-    
+    width: 40% ;
+    transition: width 0.2s ease-in ;
+}
+.nav-active .col-md-1{
+    padding: 0;
+    max-width: 0;
+}
+
+.square{
+    background: rgba(0, 0, 0, 0.8);
+    height: 4em;
+    width: 4em;
+    position: relative;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+.triangle-right {
+    width: 0;
+    height: 0;
+    border-top: 0.5rem solid transparent;
+    border-left: 1rem solid white;
+    border-bottom: 0.5rem solid transparent;
+    min-width: 4rem;
+    left: 1.5em;
+    top: 1.5rem;
+    position: relative;
 }

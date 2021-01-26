@@ -2,12 +2,17 @@
 
 
 @inject IJSRuntime JsRuntime
-
-<nav>
+<div class="container">
+<nav >
 
     <ul class="nav-links">
         <li><div class="col-md-1 ">
-            <div  class="btn-toolbar">File</div>
+            <div  class="btn-toolbar">File
+                <li>
+                    folder in 
+                </li>
+            
+                </div>
         </div></li>
         <li><div  class="col-md-1 ">
             <div   class="btn-toolbar">Edit</div>
@@ -35,23 +40,14 @@
         <div class="line2"></div>
         <div class="line3"></div>
     </div>
-    <ul class=" nav navbar-nav">
-    <li id="run" >
-        <div>
-            <div class="col">
-                <svg width="75" height="75" viewBox="0 0 75 75" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="132" height="111" transform="matrix(1 0 0 -1 -16 81)" fill="black" fill-opacity="0.8"/>
-                        
-                </svg>
+     <div class="square">
+           <div class="triangle-right"></div>
+       </div>
 
-            </div>
-        </div>
-    </li>
-    </ul>
 
 
 </nav>
-
+</div>
 @code
 {
 
@@ -79,3 +75,4 @@
 
 }
 
+    
