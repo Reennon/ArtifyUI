@@ -12,7 +12,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using RazorComponentsPreview;
+using UIArtify.Configurations;
 using UIArtify.Services;
+using UIArtify.ServicesExtension;
 using UIArtify.Shared;
 
 namespace UIArtify
@@ -26,7 +28,8 @@ namespace UIArtify
             builder.Services
                 .AddScoped(
                     sp => new {BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)})
-                .AddScoped<NavState>();
+                .AddScoped<NavState>()
+                .InitializeConfigurations(builder.Configuration);
 
             await builder.Build().RunAsync();
         }
