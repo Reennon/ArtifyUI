@@ -6,13 +6,15 @@
 }
 
 nav{
+   
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 8vh;
     background-color: #ffffff;
     z-index: 1;
-
+    padding-left: 10%;
+    padding-right: 10%;
 }
 
 .nav-links{
@@ -20,7 +22,7 @@ nav{
     justify-content: space-around;
     width: 150%;
     z-index: 1;
-
+    
 }
 .nav-links li{
     list-style: none;
@@ -36,6 +38,7 @@ nav{
     text-decoration:none;
     justify-content: center;
     display: flex;
+    text-align: center;
     align-items: center;
     letter-spacing: 0.255em;
     color: #000000;
@@ -70,13 +73,17 @@ nav{
 
 }
 
-@media screen and (max-width:728px){
-    body{
-        overflow-x: hidden ;
+
+@media screen and (max-width:1000px){
+    html, body {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        
     }
     nav{
         justify-content: left;
+        
     }
+    
     .nav-links{
         position: absolute;
         right: 0;
@@ -111,4 +118,5 @@ nav{
     display: flex;  
     transform: translateX(0%);
     transition: transform 0.2s ease-in ;
+    
 }

@@ -1,0 +1,64 @@
+﻿@inject IJSRuntime JsRuntime
+
+<div @onclick="DraggableWindow" id="@StyleId" class="window-holder">
+    <div class="row row-no-padding no-gutters ">
+
+        <div class="col my-div-header">@TabName</div>
+        <div class="col bg-black d-flex button button-hide">
+            <div class="line-holder justify-content-center align-self-center">
+                <div class="line"></div>
+            </div>
+        </div>
+
+        @if (CloseButton)
+        {
+            <div class="col bg-red d-flex button button-close">
+                <div class="line-holder justify-content-center align-self-center">
+                    <div class="x-mark"></div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="container content-wrapper">
+        @ChildContent
+    </div>
+    <div class="window-footer row row-no-padding no-gutters"></div>
+</div>
+
+
+@code {
+
+    [Parameter]
+    public Boolean CloseButton { get; set; }
+
+    [Parameter]
+    public String TabName { get; set; } = "Empty";
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public String StyleId { get; set; }
+
+    [Parameter]
+    public String ParentId { get; set; }
+
+    private Task<IJSObjectReference> _module;
+    private Task<IJSObjectReference> Module => _module ??= JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/isolated/DraggableWindow.js").AsTask();
+
+    async Task DraggableWindow()
+    {
+        var module = await Module;
+        await module.InvokeVoidAsync("dragElement", ParentId, StyleId);
+    }
+
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_module != null)
+        {
+            await (await _module).DisposeAsync();
+        }
+    }
+
+}

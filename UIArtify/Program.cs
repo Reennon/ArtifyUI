@@ -12,6 +12,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using RazorComponentsPreview;
+using UIArtify.Configurations;
+using UIArtify.Services;
+using UIArtify.ServicesExtension;
+using UIArtify.Shared;
 
 namespace UIArtify
 {
@@ -21,11 +25,13 @@ namespace UIArtify
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
-            builder.Services.AddScoped(
-                sp => new {BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)});
+            builder.Services
+                .AddScoped(
+                    sp => new {BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)})
+                .AddScoped<NavState>()
+                .InitializeConfigurations(builder.Configuration);
 
             await builder.Build().RunAsync();
         }
-
     }
 }

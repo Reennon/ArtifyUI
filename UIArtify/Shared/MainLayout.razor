@@ -1,38 +1,54 @@
-﻿@inherits LayoutComponentBase
-@inject IJSRuntime jsRuntime
+﻿@using UIArtify.Services
+@inherits LayoutComponentBase
+@inject NavState NavState
+
 
 <div class="page">
-    <div class="sidebar">
-        <NavMenu/>
-    </div>
-    <div class="main">
-        <div class="top-row px-4">
-            <a href="#" class="ml-md-auto" @onclick="ShowNavBar">About</a>
-        </div>
 
-        @if (_doesNavBarIsActive)
-        {
-            <NavBackground/>
-            
-            
-                @* <div class="nav-menu-foreground" @onclick="ShowNavBar" style="position:absolute;z-index: 10000;color: white">menu</div> *@
-        }
+
+    <div class="main">
+        <div id="nav-wrapper">
+            <div class="container">
+                <div class="row row-no-padding no-gutters align-items-center" id="line">
+                    <div class="col-3 float-left">
+                        <div id="hamburger" @onclick="@(() => NavState.Active = true)">
+                            <span class="ham" id="top"></span>
+                            <span class="ham" id="middle"></span>
+                            <span class="ham" id="bottom"></span>
+                        </div>
+                    </div>
+                    <div class="col-9 float-right">
+                        <div id="logo">
+                            <span id="logo-text">ARTIF</span>Y
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <NavBar/>
+
+
+        @* <div class="nav-menu-foreground" @onclick="ShowNavBar" style="position:absolute;z-index: 10000;color: white">menu</div> *@
+
         
-        <div class="content px-4">
+        <div class="content">
             @Body
         </div>
+
     </div>
-    
-
-
 </div>
 
-@code{
-    private static Boolean _doesNavBarIsActive;
 
-    void ShowNavBar()
+@code{
+
+    protected override void OnInitialized()
     {
-        _doesNavBarIsActive = !_doesNavBarIsActive;
+        NavState.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        NavState.OnChange -= StateHasChanged;
     }
 
 }

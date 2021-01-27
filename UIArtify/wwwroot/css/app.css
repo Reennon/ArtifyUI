@@ -2,12 +2,15 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+   
 }
 
 a, .btn-link {
     color: #0366d6;
 }
-
+.nav-menu-background:hover {
+    cursor: url(../images/cursor-white.png), auto;
+}
 .btn-primary {
     color: #fff;
     background-color: #1b6ec2;
@@ -42,12 +45,24 @@ a, .btn-link {
     z-index: 1000;
 }
 
-    #blazor-error-ui .dismiss {
+#blazor-error-ui .dismiss {
         cursor: pointer;
         position: absolute;
         right: 0.75rem;
         top: 0.5rem;
     }
+.preloader{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    align-items:center;
+    top:25vh;
+    text-align: center;
+    background-color: white ;
+    
+    justify-items: center;
+    justify-content: center;
+}
 
 
 

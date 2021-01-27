@@ -1,8 +1,13 @@
 ﻿@page "/"
+@using UIArtify.Configurations
+@using Microsoft.Extensions.Options
+@inject IOptions<Api> ApiOptions
+<div class="container">
+    <h1>Hello, world!!</h1>
+    @ApiOptions.Value.ApiRoute<br>
+    @ApiOptions.Value.RunBuild
 
-<h1>Hello, world!!</h1>
-
-
-Welcome to your new app.
-hello world
-<SurveyPrompt Title="Hello World"></SurveyPrompt>
+    Welcome to your new app.
+    hello world
+    <SurveyPrompt Title="Hello World"></SurveyPrompt>
+</div>

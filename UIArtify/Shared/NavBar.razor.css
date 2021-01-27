@@ -1,0 +1,147 @@
+﻿.nav-menu-background {
+    background-color: rgba(0, 0, 0, 0);
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+}
+
+.nav-menu-foreground {
+    color: white;
+    z-index: 110;
+}
+
+.animation {
+    animation-name: example;
+    animation-duration: 0.2s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+.animation-out {
+    animation-name: example-out;
+    animation-duration: 0.2s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+.animation-scale {
+    animation-name: animation-scale-out;
+    animation-duration: .2s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+
+}
+
+.flex-column {
+    margin: 0;
+    box-sizing: border-box;
+    line-height: 1.5;
+}
+
+h1 {
+    margin: 0 0 10px;
+    letter-spacing: -.3px;
+    font-family: Segoe UI, sans-serif, Bold;
+    font-size: 2.5em;
+    line-height: 1.4;
+    font-weight: 300 !important;
+    color: #646464;
+    width: max-content;
+}
+
+h1:hover {
+    color: whitesmoke;
+}
+h1:active {
+    color: whitesmoke;
+}
+
+.underline {
+    position: relative;
+    
+
+}
+.underline:after{
+    content: "";
+    position: absolute;
+    bottom: -10px; /*position the underline using left and bottom property*/
+    left: 0;
+    /* adjust the width of underline as you like*/
+    width:0%;
+    border-bottom: 2px solid whitesmoke; /* adjust the underline width and color as you like*/
+    /*animation-name: underline-reverse;*/
+    /*animation-duration: .2s;*/
+    /*animation-timing-function: ease-out;*/
+    /*animation-fill-mode: forwards;*/
+    transition: all 0.2s ease-out;
+}
+
+.underline:hover:after {
+    width: 100%;
+}
+
+
+@keyframes underline {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes underline-reverse {
+    from {
+        width: 100%;
+        border-color: whitesmoke;
+    }
+    to{
+        width: 0%;
+        border-color: #646464;
+    }
+}
+
+
+.width {
+    width: max-content;
+}
+
+.position-middle {
+    position: relative;
+    top: 20%;
+    -webkit-transform: translateY(-20%);
+    transform: translateY(-20%);
+    margin: 0 auto;
+}
+
+@keyframes example {
+    from {
+        background-color: rgba(0, 0, 0, 0)
+    }
+    to {
+        background-color: rgba(0, 0, 0, 1)
+    }
+}
+
+@keyframes example-out {
+    from {
+        background-color: rgba(0, 0, 0, 1)
+    }
+    to {
+        background-color: rgba(0, 0, 0, 0);
+        visibility: hidden;
+    }
+
+}
+
+@keyframes animation-scale-out {
+    from {
+        transform: scale(0.95)
+    }
+    to {
+        transform: scale(1)
+    }
+}
