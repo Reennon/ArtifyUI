@@ -1,4 +1,10 @@
 ﻿
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 nav{
     position: relative;
     display: flex;
@@ -8,7 +14,7 @@ nav{
     background-color: #ffffff;
     z-index: 1;
     padding-bottom: 1.1rem;
-    
+
 }
 
 .nav-links{
@@ -79,7 +85,7 @@ nav{
     }
     
     .nav-links{
-        position: absolute;
+        position: fixed;    
         right: 0;
         height: 100vh;
         top: 0;
