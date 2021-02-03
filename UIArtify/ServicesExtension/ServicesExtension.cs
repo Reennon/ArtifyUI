@@ -13,6 +13,7 @@ namespace UIArtify.ServicesExtension
         {
             services.AddScoped<IQueryService, QueryService>();
             services.AddBlazorDownloadFile();
+            services.AddHttpClient();
             return services;
         }
         public static void InitializeConfigurations(this IServiceCollection services, IConfiguration configuration)
