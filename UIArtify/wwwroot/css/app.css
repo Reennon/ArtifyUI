@@ -18,7 +18,8 @@ a, .btn-link {
 }
 
 .content {
-    padding-top: 1.1rem;
+    padding-top: 0rem;
+    background-color: yellow;
 }
 
 .valid.modified:not([type=checkbox]) {

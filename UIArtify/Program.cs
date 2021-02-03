@@ -16,6 +16,8 @@ using UIArtify.Configurations;
 using UIArtify.Services;
 using UIArtify.ServicesExtension;
 using UIArtify.Shared;
+using UIArtify.Services;
+using UIArtify.Helpers;
 
 namespace UIArtify
 {
@@ -25,7 +27,23 @@ namespace UIArtify
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
+            builder.Services.AddScoped(x => {
+                var apiUrl = new Uri(builder.Configuration["apiUrl"]);
+
+                // use fake backend if "fakeBackend" is "true" in appsettings.json
+                if (builder.Configuration["fakeBackend"] == "true")
+                {
+                    var fakeBackendHandler = new FakeBackendHandler(x.GetService<ILocalStorageService>());
+                    return new HttpClient(fakeBackendHandler) { BaseAddress = apiUrl };
+                }
+
+                return new HttpClient() { BaseAddress = apiUrl };
+            });
             builder.Services
+                .AddScoped<IAccountService, AccountService>()
+                .AddScoped<IAlertService, AlertService>()
+                .AddScoped<Services.IHttpService, Services.HttpService>()
+                .AddScoped<ILocalStorageService, LocalStorageService>()
                 .AddScoped(
                     sp => new {BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)})
                 .AddScoped<NavState>()

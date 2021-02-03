@@ -1,0 +1,47 @@
+.main-body {
+    background-color: black;
+}
+
+h1 {
+    letter-spacing: 50px;
+    font-family: system-ui;
+    padding-bottom: 50px;
+    font-size: 400%;
+    font-weight: lighter;
+    color: dimgray;
+}
+
+div.excerpt p {
+    word-wrap: break-word;
+}
+
+.container-container {
+    background-color: black;
+}
+
+#window-container {
+    height: 90vh;
+    background-color: black;
+}
+.labe {
+    white-space: pre-wrap;
+}
+input{
+    color: white;
+}
+.button_proceed > span {
+    background-color: white;
+    border: none;
+    color: black;
+    text-decoration: none;
+}
+.button_delete {
+    background-color: transparent;
+    color: white;
+    padding: 0;
+    border: none;
+}
+.floated {
+    float: left;
+    margin-right: 5px;
+}

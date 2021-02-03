@@ -2,11 +2,12 @@
     position: absolute;
     z-index: 9;
     background-color: #f1f1f1;
-
+    width: 80%;
 }
 
 .button {
     max-width: 6rem;
+    color: gray;
 }
 
 #query-manager {
@@ -29,6 +30,7 @@
     cursor: default;
     padding-left: 1.5rem;
     font-size: 20px;
+    height: 35px;
 }
 
 #collapse {
@@ -42,7 +44,7 @@
 }
 
 .bg-black {
-    background-color: black;
+    background-color: #282828;
     transition: all 0.2s ease-out;
 }
 .bg-black:hover {
@@ -58,9 +60,8 @@
 }
 
 .line-holder {
-
     margin: auto;
-
+    background-color: gray;
 }
 
 .line {
@@ -130,9 +131,10 @@
 }
 .window-footer{
     background-color:#D9D9D9;
-    min-height:0.5rem;
+    min-height:35px;
 }
-.content-wrapper{
+.content-wrapper {
     padding-top: 0.4rem;
     padding-bottom: 1.6rem;
+    background-color: #383838;
 }

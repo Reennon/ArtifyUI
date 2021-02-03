@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
@@ -25,6 +25,10 @@
     <ItemGroup>
       <Content Remove="Shared\Nav.razor" />
       <Content Remove="Shared\NavBackground.razor" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Watch Remove="Pages\regist.razor" />
     </ItemGroup>
 
     <ItemGroup>

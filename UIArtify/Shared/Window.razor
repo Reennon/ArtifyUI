@@ -1,6 +1,6 @@
 ﻿@inject IJSRuntime JsRuntime
 
-<div @onclick="DraggableWindow" id="@StyleId" class="window-holder">
+<div class="window-holder">
     <div class="row row-no-padding no-gutters ">
 
         <div class="col my-div-header">@TabName</div>
@@ -10,14 +10,7 @@
             </div>
         </div>
 
-        @if (CloseButton)
-        {
-            <div class="col bg-red d-flex button button-close">
-                <div class="line-holder justify-content-center align-self-center">
-                    <div class="x-mark"></div>
-                </div>
-            </div>
-        }
+        
     </div>
     <div class="container content-wrapper">
         @ChildContent
@@ -28,11 +21,10 @@
 
 @code {
 
-    [Parameter]
-    public Boolean CloseButton { get; set; }
+    
 
     [Parameter]
-    public String TabName { get; set; } = "Empty";
+    public String TabName { get; set; } = " ";
 
     [Parameter]
     public RenderFragment ChildContent { get; set; }
@@ -46,11 +38,7 @@
     private Task<IJSObjectReference> _module;
     private Task<IJSObjectReference> Module => _module ??= JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/isolated/DraggableWindow.js").AsTask();
 
-    async Task DraggableWindow()
-    {
-        var module = await Module;
-        await module.InvokeVoidAsync("dragElement", ParentId, StyleId);
-    }
+    
 
 
     public async ValueTask DisposeAsync()

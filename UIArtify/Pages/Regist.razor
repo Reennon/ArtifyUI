@@ -1,0 +1,102 @@
+﻿@page "/login"
+@inject IAccountService AccountService
+@inject IAlertService AlertService
+@inject NavigationManager NavigationManager
+
+<div class="main-body">
+    <h1>REGISTER</h1>
+
+    <div class="container-fluid container-container">
+        <div id="window-container" class="container">
+            <Window StyleId="query-manager" ParentId="window-container" TabName=@("      ")>
+                <div class="card-body">
+                    <p>Sign up Page</p>
+                    <p>Welcome new Guest</p>
+                    <p>
+                        Please fill the next fields to create an account
+                    </p>
+                    <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+                        <DataAnnotationsValidator />
+                        <div class="form-group row">
+                            <label for="staticEmail" class="col-sm-auto col-form-label">Email:</label>
+                            <div class="col-sm-10">
+                                <input @bind="model.FirstName" class="form-control-plaintext" autocomplete="on" />
+                                <ValidationMessage For="@(() => model.FirstName)" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="staticEmail" class="col-sm-auto col-form-label">Login:</label>
+                            <div class="col-sm-10">
+                                <input @bind="model.LastName" class="form-control-plaintext" autocomplete="on" />
+                                <ValidationMessage For="@(() => model.LastName)" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="staticEmail" class="col-sm-auto col-form-label">Pass: </label>
+                            <div class="col-sm-10">
+                                <input @bind="model.Username" class="form-control-plaintext" autocomplete="on" />
+                                <ValidationMessage For="@(() => model.Username)" />
+                            </div>
+                        </div>
+                        <label>Re-enter</label>
+
+                        <div class="form-group row">
+                            <label for="staticEmail" class="col-sm-auto col-form-label">your pass:</label>
+                            <div class="col-sm-10">
+                                <input @bind="model.Password" class="form-control-plaintext" autocomplete="on" />
+                                <ValidationMessage For="@(() => model.Password)" />
+                            </div>
+                        </div>
+
+                        <button disabled="@loading" class="button_proceed floated">
+                            @if (loading)
+                            {
+                                <span class="spinner-border spinner-border-sm mr-1"></span>
+                            }
+                            Proceed
+                        </button>
+                    </EditForm>
+                        <button class="button_delete" @onclick="ClearArea">
+                            Clear the fields
+                        </button>
+                    
+                </div>
+            </Window>
+        </div>
+    </div>
+
+
+</div>
+
+@code {
+    private AddUser model = new AddUser();
+    private bool loading;
+
+    private async void OnValidSubmit()
+    {
+        // reset alerts on submit
+        AlertService.Clear();
+
+        loading = true;
+        try
+        {
+            await AccountService.Register(model);
+            AlertService.Success("Registration successful", keepAfterRouteChange: true);
+            NavigationManager.NavigateTo("account/login");
+        }
+        catch (Exception ex)
+        {
+            AlertService.Error(ex.Message);
+            loading = false;
+            StateHasChanged();
+        }
+    }
+    private void ClearArea()
+    {
+        model.FirstName = null;
+        model.LastName = null;
+        model.Password = null;
+        model.Username = null;    
+    }
+}
+}
