@@ -1,15 +1,74 @@
-﻿<div class="query-holder">
+﻿@using UIArtify.Services
+@using UIArtify.Configurations
+@using Microsoft.Extensions.Options
+@using BlazorDownloadFile
+@using UIArtify.Interfaces
+@inject IQueryService QueryService
+@inject IOptions<Api> ApiOptions
+@inject IBlazorDownloadFileService BlazorDownloadFileService
+@implements UIArtify.Interfaces.IQuery
+
+<div class="query-holder">
     <div class="row row-no-padding no-gutters">
         <div class="col query-desc">
-            <div class="query-desc-text">In[1]:</div>
+            <div class="query-desc-text">In[@QueryService.LastQuery]:</div>
+            <div @onclick="@(Run)" style="color:black">Run</div>
         </div>
         <div class="col bg-black query-text">
-            
+
         </div>
     </div>
+    
 </div>
+@if (_initial)
+{
+    <div class="query-holder appear">
+        <div class="row row-no-padding no-gutters">
+            <div class="col query-desc">
+                <div class="query-desc-text">Out[@QueryService.LastQuery]:</div>
+                <div @onclick="@(Close)" style="color:black">Close</div>
+            </div>
+            <div class="col bg-black query-text">
+                
+            </div>
+        </div>
+    </div>
+}
 
 
 @code {
-    
+
+    public UInt16 QueryNumber { get; set; }
+
+    public String QueryText { get; set; }
+    private Boolean _initial;
+
+    void Run()
+    {
+        Console.WriteLine(1);
+        Console.WriteLine(QueryService.LastQuery++);
+        StateHasChanged();
+        _initial = true;
+    //QueryNumber = ++QueryService.LastQuery;
+    }
+
+    void Close()
+    {
+        StateHasChanged();
+        _initial = false;
+    }
+
+    //async Task<Byte[]> Download()
+    //{
+    //BlazorDownloadFileService.DownloadFile()
+        //return await QueryService!.Get(ApiOptions.Value.Build);
+    //}
+
+
+    public QueryContainer()
+    {
+        //QueryNumber = QueryService.LastQuery;
+    //QueryNumber = QueryService.LastQuery++;
+    }
+
 }

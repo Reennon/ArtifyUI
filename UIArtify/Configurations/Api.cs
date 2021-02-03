@@ -22,12 +22,12 @@ namespace UIArtify.Configurations
             set => _updateExecutable = value;
         }
 
-        private String _buildResource;
+        private String _build;
 
-        public String BuildResource
+        public String Build
         {
-            get => ApiRoute + _buildResource;
-            set => _buildResource = value;
+            get => ApiRoute + _build;
+            set => _build = value;
         }
 
         private String _error;

@@ -1,21 +1,9 @@
 using System;
-using System.Net.Http;
-using System.Collections.Generic;
-using System.Net.Http.Headers;
-using System.Reflection.Metadata;
 using System.Threading.Tasks;
-using System.Text;
-using HttpClientService.Blazor;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using RazorComponentsPreview;
-using UIArtify.Configurations;
 using UIArtify.Services;
 using UIArtify.ServicesExtension;
-using UIArtify.Shared;
 
 namespace UIArtify
 {
@@ -29,6 +17,7 @@ namespace UIArtify
                 .AddScoped(
                     sp => new {BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)})
                 .AddScoped<NavState>()
+                .AddServices()
                 .InitializeConfigurations(builder.Configuration);
 
             await builder.Build().RunAsync();
