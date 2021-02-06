@@ -19,7 +19,7 @@ a, .btn-link {
 
 .content {
     padding-top: 0rem;
-    background-color: yellow;
+    background-color: black;
 }
 
 .valid.modified:not([type=checkbox]) {
