@@ -5,12 +5,14 @@ namespace UIArtify.Configurations
     public sealed class Api
     {
         public String ApiRoute { get; set; }
+        
+        public String ApiPrefix { get; set; }
 
         private String _runBuild;
 
         public String RunBuild
         {
-            get => ApiRoute + _runBuild;
+            get => ApiRoute + ApiPrefix + _runBuild;
             set => _runBuild = value;
         }
 
@@ -18,7 +20,7 @@ namespace UIArtify.Configurations
 
         public String UpdateExecutable
         {
-            get => ApiRoute + _updateExecutable;
+            get => ApiRoute + ApiPrefix + _updateExecutable;
             set => _updateExecutable = value;
         }
 
@@ -26,7 +28,7 @@ namespace UIArtify.Configurations
 
         public String Build
         {
-            get => ApiRoute + _build;
+            get => ApiRoute + ApiPrefix + _build;
             set => _build = value;
         }
 
@@ -34,7 +36,7 @@ namespace UIArtify.Configurations
 
         public String Error
         {
-            get => ApiRoute + _error;
+            get => ApiRoute + ApiPrefix + _error;
             set => _error = value;
         }
 
@@ -42,7 +44,7 @@ namespace UIArtify.Configurations
 
         public String SwitchPreference
         {
-            get => ApiRoute + _switchPreference;
+            get => ApiRoute + ApiPrefix + _switchPreference;
             set => _switchPreference = value;
         }
 
@@ -50,7 +52,7 @@ namespace UIArtify.Configurations
 
         public String LoadPreference
         {
-            get => ApiRoute + _loadPreference;
+            get => ApiRoute + ApiPrefix + _loadPreference;
             set => _loadPreference = value;
         }
 
@@ -58,7 +60,7 @@ namespace UIArtify.Configurations
 
         public String UploadPreference
         {
-            get => ApiRoute + _uploadPreference;
+            get => ApiRoute + ApiPrefix + _uploadPreference;
             set => _uploadPreference = value;
         }
 
@@ -66,7 +68,7 @@ namespace UIArtify.Configurations
 
         public String UploadResource
         {
-            get => ApiRoute + _uploadResource;
+            get => ApiRoute + ApiPrefix + _uploadResource;
             set => _uploadResource = value;
         }
 
@@ -74,7 +76,7 @@ namespace UIArtify.Configurations
 
         public String Login
         {
-            get => ApiRoute + _login;
+            get => ApiRoute + ApiPrefix + _login;
             set => _login = value;
         }
 
@@ -82,7 +84,7 @@ namespace UIArtify.Configurations
 
         public String Logout
         {
-            get => ApiRoute + _logout;
+            get => ApiRoute + ApiPrefix + _logout;
             set => _logout = value;
         }
 
@@ -90,7 +92,7 @@ namespace UIArtify.Configurations
 
         public String Signup
         {
-            get => ApiRoute + _signup;
+            get => ApiRoute + ApiPrefix + _signup;
             set => _signup = value;
         }
     }

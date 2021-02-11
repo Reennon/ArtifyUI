@@ -1,0 +1,137 @@
+﻿@page "/login"
+@using UIArtify.Configurations
+@using Microsoft.Extensions.Options
+@using Newtonsoft.Json
+@using System.Net.Http.Headers
+@using System.Net
+@using System.Text
+@using System.Threading
+@using HttpClientService.Blazor
+@using Microsoft.Net.Http.Headers
+@using UIArtify.Interfaces
+@using UIArtify.Services
+@inject IOptions<Api> ApiOptions
+@inject IApiService ApiService
+@inject IJSRuntime JsRuntime
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor httpContextAccessor
+
+<div class="container">
+    <h1>Login</h1>
+    <h3>Hello, @email</h3>
+    <h6>Login route @ApiOptions.Value.Login</h6>
+    <input @bind="preferenceName"/> preferenceName value: @preferenceName<br/>
+    <input @bind="password"/> password value: @password<br/>
+    <input @bind="email"/> email value: @email<br/>
+    <button class="btn btn-primary" @onclick="@(PostLogin)">Login</button>
+    <button class="btn btn-primary" @onclick="@(Logout)">Logout Service</button>
+    @str
+    @ApiService.HttpClient.DefaultRequestHeaders
+
+    @JsonConvert.SerializeObject(
+        new
+        {
+            preference_name = preferenceName
+            , email
+            , password
+        })))
+</div>
+
+
+@code {
+    private String preferenceName;
+    private String password;
+    private String email;
+    private String str;
+    private Task<IJSObjectReference> _module;
+    private Task<IJSObjectReference> Module => _module ??= JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/isolated/GetCookie.js").AsTask();
+
+    private async Task<HttpResponseMessage> PostLogin(){
+        var response = await ApiService.HttpClient.SendAsync(new HttpRequestMessage
+        {
+            Method = HttpMethod.Post
+            , RequestUri = new Uri(ApiOptions.Value.Login)
+            , Content = new StringContent(JsonConvert.SerializeObject(
+                new
+                {
+                    preference_name = preferenceName
+                    , email
+                    , password
+                }), Encoding.UTF8, "application/json")
+        });
+        try
+        {
+            var cookieValue = response.Headers.GetValues("Set-Cookie").First();
+
+            ApiService.AddCookie(cookieValue);
+        }
+        catch (Exception e)
+        {
+            
+        }
+    /*var http = new HttpClient();
+        var request = new HttpRequestMessage
+        {
+            Method = HttpMethod.Post, RequestUri = new Uri(@"http://192.168.0.102:4000/artify/login"), Content =
+                new StringContent(JsonConvert.SerializeObject(
+                    new
+                    {
+                        preference_name = "roman", email = "roman@roman.com", password = "roman"
+                    }), Encoding.UTF8, "application/json"), Headers = { {"s","s"}}
+        };
+        var response = await http.SendAsync(request);*/
+        /*Console.WriteLine(httpContextAccessor.HttpContext == null);
+        ;
+        //Array.ForEach(response.Headers.GetValues("Set-Cookie").ToArray(), Console.WriteLine);
+        //Array.ForEach(response.Headers.ETag.Tag.ToArray(), h => Console.WriteLine(h));
+        String allResponseHeaders = Enumerable
+            .Empty<(String name, String value)>()
+            .Concat(
+                response.Headers
+                    .SelectMany(kvp => kvp.Value
+                        .Select(v => (name: kvp.Key, value: v))
+                    ))
+            .Concat(
+                response.Content.Headers
+                    .SelectMany(kvp => kvp.Value
+                        .Select(v => (name: kvp.Key, value: v))
+                    ))
+            .Aggregate(
+                seed: new StringBuilder(),
+                func: (sb, pair) => sb.Append(pair.name).Append(": ").Append(pair.value).AppendLine(),
+                resultSelector: sb => sb.ToString()
+            );
+        Console.WriteLine(allResponseHeaders);
+        var module = await Module;
+        await module.InvokeVoidAsync("b");
+        ////
+        
+        ////Console.WriteLine(cookieValue);
+        // try
+        // {
+        //     var cookie = ApiService.GetCookie(response);
+        //     Console.WriteLine(ApiService.GetCookie(response));
+        //     ApiService.AddCookie(cookie);
+        // }
+        // catch (Exception e)
+        // {
+        //     
+        // }
+        //
+        // Console.WriteLine(response.Content.ReadAsStringAsync().Result);
+        */
+        return response;
+    }
+
+    private async Task Logout() {
+        var response = await ApiService.HttpClient.SendAsync(new HttpRequestMessage
+        {
+            Method = HttpMethod.Get
+            , RequestUri = new Uri(ApiOptions.Value.Logout)
+        });
+        
+        Console.WriteLine(response.Content.ReadAsStringAsync().Result);
+    }
+
+
+}

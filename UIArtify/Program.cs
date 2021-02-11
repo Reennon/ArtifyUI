@@ -16,7 +16,6 @@ namespace UIArtify
             builder.Services
                 .AddScoped(
                     sp => new {BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)})
-                .AddScoped<NavState>()
                 .AddServices()
                 .InitializeConfigurations(builder.Configuration);
 
