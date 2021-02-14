@@ -75,15 +75,14 @@ namespace UIArtify.Helpers
                 var bodyJson = await request.Content.ReadAsStringAsync();
                 var body = JsonSerializer.Deserialize<AddUser>(bodyJson);
 
-                if (users.Any(x => x.Username == body.Username))
-                    return await error($"Username '{body.Username}' is already taken");
+                if (users.Any(x => x.Username == body.Login))
+                    return await error($"Username '{body.Login}' is already taken");
 
                 var user = new UserRecord {
                     Id = users.Count > 0 ? users.Max(x => x.Id) + 1 : 1,
-                    Username = body.Username,
+                    Username = body.Login,
                     Password = body.Password,
-                    FirstName = body.FirstName,
-                    LastName = body.LastName
+                    FirstName = body.Email
                 };
 
                 users.Add(user);

@@ -40,6 +40,7 @@ namespace UIArtify
                 return new HttpClient() { BaseAddress = apiUrl };
             });
             builder.Services
+                .AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) })
                 .AddScoped<IAccountService, AccountService>()
                 .AddScoped<IAlertService, AlertService>()
                 .AddScoped<Services.IHttpService, Services.HttpService>()

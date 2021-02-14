@@ -11,6 +11,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace UIArtify.Services
 {
@@ -92,7 +93,7 @@ namespace UIArtify.Services
         {
             var request = new HttpRequestMessage(method, uri);
             if (value != null)
-                request.Content = new StringContent(JsonSerializer.Serialize(value), Encoding.UTF8, "application/json");
+                request.Content = new StringContent(System.Text.Json.JsonSerializer.Serialize(value), Encoding.UTF8, "application/json");
             return request;
         }
 

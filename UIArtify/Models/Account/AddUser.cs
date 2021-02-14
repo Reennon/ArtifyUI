@@ -5,16 +5,17 @@ namespace UIArtify.Models.Account
     public class AddUser
     {
         [Required(ErrorMessage = "The Email field is required")]
-        public string FirstName { get; set; }
+        public string Email { get; set; }
 
         [Required(ErrorMessage = "The Login field is required")]
-        public string LastName { get; set; }
+        public string Login { get; set; }
 
         [Required(ErrorMessage = "The Password field is required")]
-        public string Username { get; set; }
+        [Compare(nameof(ReEnterPassword))]
+        public string Password { get; set; }
 
         [Required(ErrorMessage = "The Password field is required")]
         [MinLength(6, ErrorMessage = "The Password field must be a minimum of 6 characters")]
-        public string Password { get; set; }
+        public string ReEnterPassword { get; set; }
     }
 }
