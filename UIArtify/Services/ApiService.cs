@@ -15,7 +15,7 @@ namespace UIArtify.Services
 
         public void AddCookie(string cookie)
         {
-            HttpClient.DefaultRequestHeaders.Add("COOKIE", cookie);
+            HttpClient.DefaultRequestHeaders.Add("COOKIE", "cookie");
             //Cookie = cookie;
         }
 

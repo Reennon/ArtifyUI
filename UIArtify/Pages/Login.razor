@@ -15,6 +15,7 @@
 @inject IJSRuntime JsRuntime
 @using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor httpContextAccessor
+@inject HttpClient Http
 
 <div class="container">
     <h1>Login</h1>
@@ -46,29 +47,41 @@
     private Task<IJSObjectReference> _module;
     private Task<IJSObjectReference> Module => _module ??= JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/isolated/GetCookie.js").AsTask();
 
-    private async Task<HttpResponseMessage> PostLogin(){
-        var response = await ApiService.HttpClient.SendAsync(new HttpRequestMessage
+    private async Task<HttpResponseMessage> PostLogin()
+    {
+        //var http = new HttpClient();
+        var request = new HttpRequestMessage
         {
-            Method = HttpMethod.Post
-            , RequestUri = new Uri(ApiOptions.Value.Login)
-            , Content = new StringContent(JsonConvert.SerializeObject(
-                new
-                {
-                    preference_name = preferenceName
-                    , email
-                    , password
-                }), Encoding.UTF8, "application/json")
-        });
-        try
-        {
-            var cookieValue = response.Headers.GetValues("Set-Cookie").First();
-
-            ApiService.AddCookie(cookieValue);
-        }
-        catch (Exception e)
-        {
-            
-        }
+            Method = HttpMethod.Post, RequestUri = new Uri(@"http://192.168.0.105:4000/artify/login"), Content =
+                new StringContent(JsonConvert.SerializeObject(
+                    new
+                    {
+                        preference_name = "roman", email = "roman@roman.com", password = "roman"
+                    }), Encoding.UTF8, "application/json")
+                    , Headers = { {"COOKIE","session=.eJwlzjkOwkAMQNG7TE0xm-1xLhN5FbQJqRB3JxIH-F_vU_Y84nyW7X1c8Sj7y8tWVjgourINUqUgc_RKyb0JAIoBpSlDpqBwhTQkUqLZzMcEJcFuLbDWqdHUq-VMcXVZbL3eJTdloXZvewXTsTwdTCx9sFm5IdcZx18zyvcHgP4x4A.YCkBvA.lc9OfUWOVc94ljrtPmv5qercqnM; HttpOnly; Path=/"}}
+        };
+        request.Headers.Add("j","session=.eJwlzjkOwkAMQNG7TE0xm-1xLhN5FbQJqRB3JxIH-F_vU_Y84nyW7X1c8Sj7y8tWVjgourINUqUgc_RKyb0JAIoBpSlDpqBwhTQkUqLZzMcEJcFuLbDWqdHUq-VMcXVZbL3eJTdloXZvewXTsTwdTCx9sFm5IdcZx18zyvcHgP4x4A.YCkBvA.lc9OfUWOVc94ljrtPmv5qercqnM; HttpOnly; Path=/");
+        //ApiService.HttpClient.DefaultRequestHeaders.Add("y","y");
+        var response = await Http.PostAsJsonAsync("http://192.168.0.105:4000/artify/login","{\"preference_name\": \"roman\", \"email\": \"roman@roman.com\", \"password\": \"roman\"}");
+        String allResponseHeaders = Enumerable
+            .Empty<(String name, String value)>()
+            .Concat(
+                response.Headers
+                    .SelectMany(kvp => kvp.Value
+                        .Select(v => (name: kvp.Key, value: v))
+                    ))
+            .Concat(
+                response.Content.Headers
+                    .SelectMany(kvp => kvp.Value
+                        .Select(v => (name: kvp.Key, value: v))
+                    ))
+            .Aggregate(
+                seed: new StringBuilder(),
+                func: (sb, pair) => sb.Append(pair.name).Append(": ").Append(pair.value).AppendLine(),
+                resultSelector: sb => sb.ToString()
+            );
+        Console.WriteLine(allResponseHeaders);
+        Console.WriteLine(await response.Content.ReadAsStringAsync());
     /*var http = new HttpClient();
         var request = new HttpRequestMessage
         {
