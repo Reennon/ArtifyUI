@@ -1,4 +1,5 @@
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,7 +17,7 @@ namespace UIArtify
             builder.Services
                 .AddScoped(
                     sp => new {BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)})
-                .AddScoped<NavState>()
+                .AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) })
                 .AddServices()
                 .InitializeConfigurations(builder.Configuration);
 
