@@ -20,7 +20,7 @@ namespace UIArtify.ServicesExtension
             services.AddScoped<NavState>();
             services.AddScoped<IQueryService, QueryService>();
             services.AddScoped<IApiService, ApiService>();
-            services.AddHttpContextAccessor();
+            //services.AddHttpContextAccessor();
             //services.AddScoped<HttpContextAccessor>();
             services.AddBlazorDownloadFile();
 

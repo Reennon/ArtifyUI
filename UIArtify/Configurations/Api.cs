@@ -95,5 +95,12 @@ namespace UIArtify.Configurations
             get => ApiRoute + ApiPrefix + _signup;
             set => _signup = value;
         }
+        private String _smoke;
+
+        public String Smoke
+        {
+            get => ApiRoute + ApiPrefix + _smoke;
+            set => _smoke = value;
+        }
     }
 }
