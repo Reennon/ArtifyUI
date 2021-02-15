@@ -5,13 +5,20 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="BlazorDownloadFile" Version="2.1.6" />
         <PackageReference Include="Codecamp.HttpClientService.Blazor" Version="1.1.3" />
+
         <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+
+        <PackageReference Include="HeaderPropagation" Version="3.0.2" />
+
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.0" PrivateAssets="all" />
         <PackageReference Include="Microsoft.AspNetCore.Razor.Runtime" Version="2.2.0" />
         <PackageReference Include="Microsoft.DotNet.Watcher.Tools" Version="2.0.2" />
+        <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
         <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="5.0.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
         <PackageReference Include="RazorComponentsPreview" Version="0.6.0" />
         <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
         <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.76" />
@@ -19,21 +26,25 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Include="wwwroot\js\EditorToolbar.razor.js" />
-      <None Include="wwwroot\js\isolated\NavBackground.razor.js" />
+        <None Include="wwwroot\js\EditorToolbar.razor.js" />
+        <None Include="wwwroot\js\isolated\NavBackground.razor.js" />
     </ItemGroup>
 
     <ItemGroup>
-      <Content Remove="Shared\Nav.razor" />
-      <Content Remove="Shared\NavBackground.razor" />
+        <Content Remove="Shared\Nav.razor" />
+        <Content Remove="Shared\NavBackground.razor" />
     </ItemGroup>
 
     <ItemGroup>
+<<<<<<< HEAD
       <Watch Remove="Pages\regist.razor" />
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="wwwroot\sample-data\image" />
+=======
+        <Folder Include="wwwroot\sample-data\image" />
+>>>>>>> 9c65685cab0a3a315cb82cc2dd4b899d3dfbbcd4
     </ItemGroup>
 
 

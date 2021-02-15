@@ -18,8 +18,10 @@ a, .btn-link {
 }
 
 .content {
+
     padding-top: 0rem;
     background-color: black;
+
 }
 
 .valid.modified:not([type=checkbox]) {
@@ -65,5 +67,33 @@ a, .btn-link {
     justify-content: center;
 }
 
+#logo{
+    text-align: right;
 
+    font-family: "Open Sans", serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 41px;
+    /* identical to box height */
+
+
+    color: #FFFFFF;
+}
+#logo-text{
+    letter-spacing: 0.865em;
+}
+.credentials{
+    font-family: Open Sans, serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 0.8rem;
+    line-height: 23px;
+    display: flex;
+    align-items: flex-end;
+    letter-spacing: 0.3em;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 3.5rem;
+    padding-bottom: 7rem;
+}
 
