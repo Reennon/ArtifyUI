@@ -25,7 +25,6 @@
     <button class="btn btn-primary" @onclick="@(PostLogin)">Login</button>
     <button class="btn btn-primary" @onclick="@(()=>Console.WriteLine(Logout()))">Logout Service</button>
     <button class="btn btn-primary" @onclick="@(Smoke)">Smoke</button>
-
     @ApiService.HttpClient.DefaultRequestHeaders
 
     @JsonConvert.SerializeObject(
@@ -39,6 +38,7 @@
 
 
 @code {
+
     public String PreferenceName;
     public String Password;
     public String Email;
@@ -55,6 +55,7 @@
             });
         var responseContent = await response.Content.ReadAsStringAsync();
         Http.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", responseContent.Substring(1,responseContent.Length-3));
+
         return response;
     }
 
@@ -74,6 +75,4 @@
         
         Console.WriteLine(response.Content.ReadAsStringAsync().Result);
     }
-
-
 }
