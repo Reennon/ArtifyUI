@@ -3,7 +3,7 @@
 <div @onclick="DraggableWindow" id="@StyleId" class="window-holder">
     <div class="row row-no-padding no-gutters ">
 
-        <div class="col my-div-header">@TabName</div>
+        <div class="col" id="@(StyleId+"header")">@TabName</div>
         <div class="col bg-black d-flex button button-hide">
             <div class="line-holder justify-content-center align-self-center">
                 <div class="line"></div>

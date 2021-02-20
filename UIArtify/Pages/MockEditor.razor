@@ -1,0 +1,50 @@
+﻿@page "/mock-editor"
+@inject HttpClient Http 
+
+<div style="margin-top: 100px">
+
+    <MonacoEditor 
+        Id = "any-id-string"
+        ConstructionOptions = "EditorConstructionOptions"
+        OnDidChangeCursorPosition = "EditorDidChangeCursorPosition"
+        CssClass="my-editor-class"
+        />
+    
+</div>
+
+
+@code {
+    private StandaloneEditorConstructionOptions EditorConstructionOptions(MonacoEditor editor)
+    {
+        return new StandaloneEditorConstructionOptions
+        {
+            AutomaticLayout = true,
+            Language = "csharp",
+            Value = "using System; Console.WriteLine(\"Say Hello to the Artify!\");",
+            Theme = "vs-dark",
+            Minimap = new()
+            {
+                Enabled = false
+            },
+            FormatOnType = true,
+            SmoothScrolling = true,
+            TabCompletion = "on",
+            Suggest = new()
+            {
+                ShowColors = true,
+                ShowConstructors = true,
+                ShowFields = true,
+            },
+            ShowUnused = true,
+            ScrollBeyondLastLine = false,
+            
+        };
+    }
+    private void EditorDidChangeCursorPosition(CursorPositionChangedEvent eventArgs)
+    {
+        Console.WriteLine("EditorDidChangeCursorPosition");
+    }
+    
+    
+
+}
