@@ -48,8 +48,8 @@
         margin-left: 0;
     }
     #hamburger{
-        margin-top: 1.3rem;
-        margin-bottom: 1.3rem;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
     }
     /*.container{*/
     /*    margin-left: 1rem;*/
@@ -98,14 +98,14 @@
 
 #hamburger {
     cursor: pointer;
-    margin-top: 3.2rem;
-    margin-bottom: 3.2rem;
+    margin-top: 2.2rem;
+    margin-bottom: 2.2rem;
 }
 .ham {
     display: block;
-    height: 0.1rem;
-    width: 1rem;
-    margin: 0.2rem 0;
+    height: 1px;
+    width: 0.85rem;
+    margin: 3px 0;
     background: white;
     transition: all .2s ease-out;
 }
@@ -115,8 +115,8 @@
     font-family: "Open Sans", serif;
     font-style: normal;
     font-weight: 300;
-    font-size: 25px;
-    line-height: 41px;
+    line-height: 2.5rem;
+    font-size: 1.15rem;
     /* identical to box height */
     
 

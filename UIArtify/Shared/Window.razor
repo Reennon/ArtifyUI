@@ -1,10 +1,18 @@
-﻿@inject IJSRuntime JsRuntime
+﻿@using UIArtify.Interfaces
+@using System.Reflection
+@inject IJSRuntime JsRuntime
+@inject IEditorRefresherService EditorRefresherService
+
 
 <div @onclick="DraggableWindow" id="@StyleId" class="window-holder">
-    <div class="row row-no-padding no-gutters ">
+    <div class="row row-no-padding no-gutters header-line">
 
-        <div class="col" id="@(StyleId+"header")">@TabName</div>
-        <div class="col bg-black d-flex button button-hide">
+        <div class="col ali" id="@(StyleId+"header")">
+            <span class="align-middle tab-name">
+                @TabName
+            </span>
+        </div>
+        <div class="col bg-black d-flex button button-hide" @onclick="Hide">
             <div class="line-holder justify-content-center align-self-center">
                 <div class="line"></div>
             </div>
@@ -19,7 +27,7 @@
             </div>
         }
     </div>
-    <div class="container content-wrapper">
+    <div class="container content-wrapper scroller" id="@(StyleId+"body")">
         @ChildContent
     </div>
     <div class="window-footer row row-no-padding no-gutters"></div>
@@ -45,14 +53,26 @@
 
     private Task<IJSObjectReference> _module;
     private Task<IJSObjectReference> Module => _module ??= JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/isolated/DraggableWindow.js").AsTask();
-
+    
     async Task DraggableWindow()
     {
-        var module = await Module;
-        await module.InvokeVoidAsync("dragElement", ParentId, StyleId);
+        
+        
     }
 
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+        var module = await Module;
+        var dotNetReference = DotNetObjectReference.Create(this);
+        await module.InvokeVoidAsync("dragElement", ParentId, StyleId);
+        await module.InvokeVoidAsync("resizeWatcher", StyleId+"body", dotNetReference);
+    }
 
+    [JSInvokableAttribute("BlazorWasmJSInteropEditor")]
+    public void RefreshEditor() =>
+        EditorRefresherService.RefreshEditor();
+    
     public async ValueTask DisposeAsync()
     {
         if (_module != null)
@@ -61,4 +81,11 @@
         }
     }
 
+    async Task Hide()
+    {
+        var module = await Module;
+        await module.InvokeVoidAsync("hideWindow", StyleId+"body");
+    }
+
+    
 }

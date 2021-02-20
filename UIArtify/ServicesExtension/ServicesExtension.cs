@@ -20,6 +20,7 @@ namespace UIArtify.ServicesExtension
             services.AddScoped<NavState>();
             services.AddScoped<IQueryService, QueryService>();
             services.AddScoped<IApiService, ApiService>();
+            services.AddScoped<IEditorRefresherService, EditorRefresherService>();
             services.AddBlazorDownloadFile();
 
             return services;

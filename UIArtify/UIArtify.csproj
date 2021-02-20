@@ -39,6 +39,28 @@
         <Folder Include="wwwroot\sample-data\image" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\js\shared\css-element-queries\.gitignore" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\shared\css-element-queries\.npmignore" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\shared\css-element-queries\css-element-queries.d.ts" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\shared\css-element-queries\index.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\shared\css-element-queries\LICENSE" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\shared\css-element-queries\package.json" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\shared\css-element-queries\README.md" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\shared\css-element-queries\src\ElementQueries.d.ts" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\shared\css-element-queries\src\ElementQueries.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\shared\css-element-queries\src\ResizeSensor.d.ts" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\shared\css-element-queries\src\ResizeSensor.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\shared\css-element-queries\tests\demo.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\shared\css-element-queries\tests\demo.html" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\shared\css-element-queries\tests\demo.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\shared\css-element-queries\tests\late-trigger.html" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\shared\css-element-queries\tests\mutation\app.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\shared\css-element-queries\tests\mutation\app.ts" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\shared\css-element-queries\tests\mutation\index.html" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\shared\css-element-queries\tsconfig.json" />
+    </ItemGroup>
+
 
 
 </Project>

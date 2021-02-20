@@ -6,16 +6,25 @@
 @inject IQueryService QueryService
 @inject IOptions<Api> ApiOptions
 @inject IBlazorDownloadFileService BlazorDownloadFileService
+@inject IEditorRefresherService EditorRefresherService
 @implements UIArtify.Interfaces.IQuery
 
 <div class="query-holder">
     <div class="row row-no-padding no-gutters">
-        <div class="col query-desc">
-            <div class="query-desc-text">In[@QueryService.LastQuery]:</div>
+        <div class="col-2 query-desc">
+            <div class="query-desc-text">
+                <span class="align-baseline">
+                    In[@QueryService.LastQuery]:
+                </span>
+            </div>
             <div @onclick="@(Run)" style="color:black">Run</div>
         </div>
-        <div class="col bg-black query-text">
-            <input @bind="QueryText"/>@QueryText<br/>
+        <div class="col-10 query-text">
+            <MonacoEditor
+                ConstructionOptions = "EditorConstructionOptions"
+                    OnDidChangeCursorPosition = "EditorDidChangeCursorPosition"
+                CssClass="editor-style"
+            />
         </div>
     </div>
     
@@ -24,11 +33,11 @@
 {
     <div class="query-holder appear">
         <div class="row row-no-padding no-gutters">
-            <div class="col query-desc">
+            <div class="col-2 query-desc">
                 <div class="query-desc-text">Out[@QueryService.LastQuery]:</div>
                 <div @onclick="@(Close)" style="color:black">Close</div>
             </div>
-            <div class="col bg-black query-text">
+            <div class="col-10 bg-black query-text editor-style">
                 
             </div>
         </div>
@@ -42,6 +51,7 @@
 
     public String QueryText { get; set; }
     private Boolean _initial;
+    private MonacoEditor _editor;
 
     void Run()
     {
@@ -49,6 +59,8 @@
         Console.WriteLine(QueryService.LastQuery++);
         StateHasChanged();
         _initial = true;
+        _editor.Layout();
+        
     //QueryNumber = ++QueryService.LastQuery;
     }
 
@@ -56,6 +68,7 @@
     {
         StateHasChanged();
         _initial = false;
+        _editor.Layout();
     }
 
     //async Task<Byte[]> Download()
@@ -63,12 +76,63 @@
     //BlazorDownloadFileService.DownloadFile()
         //return await QueryService!.Get(ApiOptions.Value.Build);
     //}
-
+    
 
     public QueryContainer()
     {
         //QueryNumber = QueryService.LastQuery;
     //QueryNumber = QueryService.LastQuery++;
+    }
+    private StandaloneEditorConstructionOptions EditorConstructionOptions(MonacoEditor editor)
+    {
+        _editor = editor;
+        EditorRefresherService.AddEditor(editor);
+        return new StandaloneEditorConstructionOptions
+        {
+            AutomaticLayout = true,
+            Language = "csharp",
+            Value = "using System;\nusing Artify;\nConsole.WriteLine(\"Say Hello to the Artify!\");",
+            Theme = "vs-dark",
+            Minimap = new()
+            {
+                Enabled = false
+
+            },
+            ColorDecorators = true,
+            QuickSuggestions = new()
+            {
+                Comments = true,
+                Other = true,
+                Strings = true
+            },
+            ParameterHints = new()
+            {
+                Enabled = true,
+                Cycle = true
+            },
+            AutoIndent = true,
+            FormatOnType = true,
+            SmoothScrolling = true,
+            TabCompletion = "on",
+            Suggest = new()
+            {
+                ShowColors = true,
+                ShowConstructors = true,
+                ShowFields = true,
+                ShowValues = true,
+                FilterGraceful = true,
+                InsertHighlight = true
+            },
+            ShowUnused = true,
+            ScrollBeyondLastLine = false,
+            Contextmenu = false
+
+        };
+    }
+
+    private void EditorDidChangeCursorPosition(CursorPositionChangedEvent eventArgs)
+    {
+        Console.WriteLine("EditorDidChangeCursorPosition");
     }
 
 }

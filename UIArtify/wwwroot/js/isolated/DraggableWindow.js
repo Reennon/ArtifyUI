@@ -62,4 +62,43 @@
         document.onmousemove = null;
         element.style.zIndex = "10";
     }
+    BaseElement.onresize = () => {
+        DotNet.invokeMethodAsync("BlazorWasmJSInteropExamples", "RefreshEditor");
+        console.log("hello");
+    }
+    
+}
+
+export function resizeWatcher(id, dotNetObject){
+
+    let item = document.getElementById(id);
+    installResizeWatcher(item,1000);
+    function installResizeWatcher(el, interval){
+        let offset = {width: el.offsetWidth, height: el.offsetHeight}
+        setInterval(()=>{
+            let newOffset = {width: el.offsetWidth, height: el.offsetHeight}
+            if(
+                offset.height!==newOffset.height
+                || offset.width!==newOffset.width)
+            {
+                offset = newOffset
+                dotNetObject.invokeMethodAsync("BlazorWasmJSInteropEditor", "RefreshEditor");
+            }
+        }, interval)
+    }
+}
+export function hideWindow(id){
+    let item = document.getElementById(id);
+    let height = item.offsetHeight;
+    let diff = 1/20*(height - 35);
+    setInterval(()=>{
+        if(
+            item.height !== '35px')
+        {
+            height -= diff
+            item.style.height = `${height}px`;
+        }
+    }, 1)
+    //let item = document.getElementById(id);
+    
 }
