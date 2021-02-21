@@ -9,11 +9,11 @@
     <ul class="nav-links">
         <li>
             <div class="col-md-1 ">
-                <RightClickMeu>
-                    <div class="btn-toolbar">
+                <div class="btn-toolbar">
                         File
+                        <RightClickMeu ContextContent="@FileContext"/>
                     </div>
-                </RightClickMeu>
+                
             </div>
         </li>
         <li>
@@ -61,16 +61,32 @@
 @code
 {
 
-   
+    private String FileContext = "<nav  class=\"context-menu\"><ul class=\"context-menu__items\"><li class=\"context-menu__item\"><a href=\"#\" class=\"context-menu__link\" data-action=\"View\">View3 Task</a></li><li class=\"context-menu__item\"><a href=\"#\" class=\"context-menu__link\" data-action=\"Edit\">Edit Task</a></li><li class=\"context-menu__item\"><a href=\"#\" class=\"context-menu__link\" data-action=\"Delete\"> Delete Task</a></li></ul></nav>";
     
     private Task<IJSObjectReference> _module;
+    private Task<IJSObjectReference> _module_right_click;
+    private Task<IJSObjectReference> Module_right_click => _module_right_click ??= JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/isolated/rightClick.js").AsTask();
     private Task<IJSObjectReference> Module => _module ??= JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/isolated/EditorToolbar.razor.js").AsTask();
     async Task SideBar()
     {
         var module = await Module;
         await module.InvokeVoidAsync("navSlide");
     }
-    
+    async Task Right_click_File()
+    {
+        var module = await Module_right_click;
+        await module.InvokeVoidAsync("right_click");
+    }
+
+/*
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        var module = await Module_right_click;
+        await module.InvokeVoidAsync("right_click");
+      
+    }
+*/
     
     public async ValueTask DisposeAsync()
     {

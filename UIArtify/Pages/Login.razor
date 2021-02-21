@@ -54,7 +54,9 @@
                 , password = Password        
             });
         var responseContent = await response.Content.ReadAsStringAsync();
-        Http.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", responseContent.Substring(1,responseContent.Length-3));
+
+        var jsonResponse = JsonConvert.DeserializeObject<Dictionary<String, String>>(responseContent);
+        Http.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", jsonResponse["token"]);
 
         return response;
     }

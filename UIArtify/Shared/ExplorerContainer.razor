@@ -86,7 +86,7 @@
     async Task Tree()
     {
         var module = await Module;
-        var path = await Http.GetStringAsync(@"http://localhost:4000/artify/smoke");
+        var path = await Http.GetStringAsync(@"http://localhost:4000/artify/tree");
         Html =await module.InvokeAsync<String>("tree",path);
    
     }
