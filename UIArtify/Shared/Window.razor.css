@@ -2,9 +2,12 @@
     position: absolute;
     z-index: 9;
     background-color: #f1f1f1;
-
+    margin-bottom: 1.6rem
+    
 }
-
+.header-line{
+    height: 2rem;
+}
 .button {
     max-width: 6rem;
 }
@@ -134,5 +137,42 @@
 }
 .content-wrapper{
     padding-top: 0.4rem;
-    padding-bottom: 1.6rem;
+    /*padding-bottom: 1.6rem;*/
+    resize: both;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    min-width: 460px;
+    min-height: 35px;
+}
+.scroller{
+    scrollbar-color: rgba(231, 231, 231, 0.7) rgba(231, 231, 231, 0);
+    transition: all ease-out 0.1s;
+}
+.scroller:hover{
+    scrollbar-color: rgba(255, 255, 255, 0.8); rgba(231, 231, 231, 0);
+}
+.scroller::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+}
+.scroller::-webkit-resizer {
+    background-color:rgba(0, 0, 0, 0.7);
+}
+
+.scroller::-webkit-scrollbar-track-piece  {
+    background-color: rgba(231, 231, 231, 0);
+}
+
+.scroller::-webkit-scrollbar-thumb:vertical {
+    height: 0.5rem;
+    background-color: rgba(231, 231, 231, 0.7) ;
+}
+.scroller::-webkit-scrollbar-thumb:horizontal {
+    height: 0.5rem;
+    background-color: rgba(231, 231, 231, 0.7) ;
+}
+
+.tab-name{
+    padding-left: 1.4rem;
+    font-size:1.15rem;
 }
