@@ -1,20 +1,64 @@
 @using System.Reflection.Metadata.Ecma335
 
-
+@inject HttpClient Http
 @inject IJSRuntime JsRuntime
 
+<style>
+    
+.third-level-menu
+{
+    position: absolute;
+    top: 0;
+    right: -20rem;
+    width: 20rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: none;
+
+}
+
+.third-level-menu > li
+{
+    height: 3rem;
+   
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 2rem;
+    background: rgba(51, 51, 51, 0.85);
+    
+    backdrop-filter: blur(10px);
+    padding-left: 0.5rem;
+}
+.third-level-menu > li:hover {background: rgb(79, 91, 105); }
+
+</style>
 
 <nav>
     
-    <ul class="nav-links">
+    <ul class="nav-links top-level-menu">
         <li>
             <div class="col-md-1 ">
-                <div class="btn-toolbar">
-                        File
-                        <RightClickMeu ContextContent="@FileContext"/>
-                    </div>
-                
+                <div @onmouseover="Projects" class="btn-toolbar">
+                    
+                    File
+                </div>
             </div>
+            <ul class="second-level-menu">
+                <li>New Notebook</li>
+                <li>Open
+                    <ul class="third-level-menu">
+                        <li>New Notebook</li>
+                        <div class="file-line"></div>
+                        @((MarkupString)FileContext)
+                        </ul>
+                    </li>
+                <li>Save as ...</li>
+                <li>Save all</li>
+                <li>Close</li>
+                <li>Settigs ...</li>
+                <li>Exit</li>
+            </ul>
         </li>
         <li>
             <div class="col-md-1 ">
@@ -61,11 +105,10 @@
 @code
 {
 
-    private String FileContext = "<nav  class=\"context-menu\"><ul class=\"context-menu__items\"><li class=\"context-menu__item\"><a href=\"#\" class=\"context-menu__link\" data-action=\"View\">View3 Task</a></li><li class=\"context-menu__item\"><a href=\"#\" class=\"context-menu__link\" data-action=\"Edit\">Edit Task</a></li><li class=\"context-menu__item\"><a href=\"#\" class=\"context-menu__link\" data-action=\"Delete\"> Delete Task</a></li></ul></nav>";
-    
+    private String FileContext = "";
     private Task<IJSObjectReference> _module;
-    private Task<IJSObjectReference> _module_right_click;
-    private Task<IJSObjectReference> Module_right_click => _module_right_click ??= JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/isolated/rightClick.js").AsTask();
+    private Task<IJSObjectReference> _module_get_project;
+    private Task<IJSObjectReference> Module_get_project => _module_get_project ??= JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/isolated/File_project_template.js").AsTask();
     private Task<IJSObjectReference> Module => _module ??= JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/isolated/EditorToolbar.razor.js").AsTask();
     async Task SideBar()
     {
@@ -74,10 +117,16 @@
     }
     async Task Right_click_File()
     {
-        var module = await Module_right_click;
+        var module = await Module_get_project;
         await module.InvokeVoidAsync("right_click");
     }
-
+    async Task Projects()
+    {
+        var module = await Module_get_project;
+        var path = await Http.GetStringAsync(@"http://localhost:4000/artify/preference");
+        FileContext =await module.InvokeAsync<String>("projects",path);
+   
+    }
 /*
     protected override async Task OnInitializedAsync()
     {

@@ -151,3 +151,95 @@ nav{
     top: 1.5rem;
     position: relative;
 }
+
+.third-level-menu
+{
+    position: absolute;
+    top: 0;
+    right: -20rem;
+    width: 20rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: none;
+}
+
+.third-level-menu > li
+{
+    height: 3rem;
+   
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 2rem;
+    background: rgba(51, 51, 51, 0.85);
+    
+    backdrop-filter: blur(10px);
+}
+.third-level-menu > li:hover {background: rgb(79, 91, 105); }
+
+.second-level-menu
+{
+    position: absolute;
+    width:20rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: none;
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+}
+
+.second-level-menu > li
+{
+    position: relative;
+    height: 3rem;
+    color: #FFFFFF;
+    
+    font-size: 2rem;
+    background: rgba(51, 51, 51, 0.85);
+    
+    backdrop-filter: blur(10px);
+    padding-left: 0.5rem;
+}
+.second-level-menu > li:hover {
+    background: rgb(79, 91, 105); }
+
+.top-level-menu
+{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.top-level-menu > li
+{
+    position: relative;
+   
+    
+}
+
+
+.top-level-menu li:hover > ul
+{
+    /* On hover, display the next level's menu */
+    display: inline;
+}
+
+
+/* Menu Link Styles */
+
+.top-level-menu a /* Apply to all links inside the multi-level menu */
+{
+    font: bold 14px Arial, Helvetica, sans-serif;
+    
+    text-decoration: none;
+    
+
+    /* Make the link cover the entire list item-container */
+    display: block;
+    line-height: 30px;
+}
+.file-line{
+    height:0.25rem;
+    width: 20rem;
+    background-color: #848484;
+}

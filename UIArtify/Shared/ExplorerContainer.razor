@@ -1,7 +1,7 @@
 ﻿
 @inject HttpClient Http
 @inject IJSRuntime JsRuntime
-<button class="btn btn-primary" @onclick="@Tree">Click me Smoke</button>
+
 <style>
     .tnz-chartbox.folder-view {
         min-width: 280px;
@@ -80,7 +80,7 @@
 
 @code {
 
-    private string Html = "hello";
+    private string Html = "";
     private Task<IJSObjectReference> _module;
     private Task<IJSObjectReference> Module => _module ??= JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/isolated/explorer.js").AsTask();
     async Task Tree()
@@ -91,4 +91,13 @@
    
     }
 
+    protected override async Task  OnInitializedAsync()
+    {
+       
+        var module = await Module;
+        var path = await Http.GetStringAsync(@"http://localhost:4000/artify/tree");
+        Html =await module.InvokeAsync<String>("tree",path);
+    }
+
+    
 }
