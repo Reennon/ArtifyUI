@@ -141,7 +141,7 @@
     resize: both;
     overflow-y: scroll;
     overflow-x: hidden;
-    min-width: 460px;
+    min-width: 21rem;
     min-height: 35px;
 }
 .scroller{
@@ -175,4 +175,5 @@
 .tab-name{
     padding-left: 1.4rem;
     font-size:1.15rem;
+    padding-top: 0.3rem;
 }

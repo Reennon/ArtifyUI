@@ -82,6 +82,11 @@ namespace UIArtify.Configurations
             set => _output = value;
         }
         
+        public String Tree{
+            get => ApiRoute + ApiPrefix + _tree;
+            set => _tree = value;
+        }
+        
         
         private String _script;
         private String _smoke;
@@ -98,5 +103,6 @@ namespace UIArtify.Configurations
         private String _uploadResource;
         private String _scriptJson;
         private String _output;
+        private String _tree;
     }
 }
