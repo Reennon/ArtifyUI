@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace UIArtify.Interfaces
@@ -7,8 +8,18 @@ namespace UIArtify.Interfaces
     {
         public UInt16 LastQuery { get; set; }
 
-        public Task Post(String data, String route);
+        public Task Post(
+            (String name, String data, String? extension) file
+            , HttpClient client
+        );
 
-        public Task<Byte[]> Get(String route);
+        Task RunBuild(
+            HttpClient client
+            , String dllName
+        );
+
+        Task<String> Output(
+            HttpClient client
+        );
     }
 }

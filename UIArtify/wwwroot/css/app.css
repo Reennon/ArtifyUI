@@ -64,7 +64,7 @@ a, .btn-link {
     justify-content: center;
 }
 
-#logo{
+.logo{
     text-align: right;
 
     font-family: "Open Sans", serif;
@@ -77,7 +77,7 @@ a, .btn-link {
 
     color: #FFFFFF;
 }
-#logo-text{
+.logo-text{
     letter-spacing: 0.865em;
 }
 .credentials{
@@ -90,7 +90,7 @@ a, .btn-link {
     align-items: flex-end;
     letter-spacing: 0.3em;
     color: rgba(255, 255, 255, 0.7);
-    margin-top: 3.5rem;
+    margin-top: 5rem;
     padding-bottom: 7rem;
 }
 
@@ -108,4 +108,45 @@ a, .btn-link {
     min-height: 300px;
     resize: vertical;
     overflow-x: hidden;
+}
+.page-header-wide{
+    font-family: "Attentica 4F UltraLight", serif;
+    font-style: normal;
+    font-weight: 250;
+    font-size: 6.5vw;
+    line-height: 100px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.805em;
+    margin-left: -1rem;
+    color: rgba(255, 255, 255, 0.3);
+
+    backdrop-filter: blur(4px);
+}
+.container-fluid-black-main{
+    background-color: black;
+    min-height: 100vh;
+    padding-top: 5.5vh;
+}
+.window-holder-markup{
+    margin-top:9rem;
+}
+.window-markup{
+    background-color: rgba(0, 0, 0, 0.9);
+    color: #fff;
+    font-size:1.25rem;
+    font-family: "Segoe UI", serif;
+    cursor: default;
+    padding: 1.4375rem;
+}
+.fa-github{
+    font-size:3rem;!important;
+    color:white;
+    transition: all 0.4s ease-out;
+}
+.fa-github:hover{
+    color: rgba(255, 255, 255, 0.3);
+}
+.footer{
+    margin-top: 7rem;
 }

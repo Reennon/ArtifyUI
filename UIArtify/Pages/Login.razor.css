@@ -1,0 +1,43 @@
+﻿.login-holder{
+    background-color: rgba(255, 255, 255, 0.9);
+    padding-top: 2.25rem;
+    padding-bottom: 2.25rem;
+}
+
+input:focus, textarea:focus, select:focus{
+    outline: none;
+}
+input{
+    background-color: #161616;
+    border: none;
+    color: #e6e6e6;
+}
+.input-column{
+    margin-bottom: 1.5rem;
+}
+.login-window-markup{
+    line-height: 2rem;!important;
+    letter-spacing: 0.12em;!important;
+}
+svg{
+    fill:white;
+    transition: all 0.4s ease-out;
+}
+svg:hover{
+    fill: rgba(255, 255, 255, 0.3);
+}
+.item{
+    transition: all 0.4s ease-out;
+    margin-right: 1.5rem;
+    margin-left: -0.3rem;
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+}
+.item:hover{
+    background-color: #C4C4C4;
+    color: black;
+}
+.item:active{
+    background-color: #acacac;
+    color: #181818;
+}

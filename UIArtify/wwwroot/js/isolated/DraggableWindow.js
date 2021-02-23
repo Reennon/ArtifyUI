@@ -62,11 +62,6 @@
         document.onmousemove = null;
         element.style.zIndex = "10";
     }
-    BaseElement.onresize = () => {
-        DotNet.invokeMethodAsync("BlazorWasmJSInteropExamples", "RefreshEditor");
-        console.log("hello");
-    }
-    
 }
 
 export function resizeWatcher(id, dotNetObject){
