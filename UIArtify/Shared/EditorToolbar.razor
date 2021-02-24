@@ -1,7 +1,10 @@
 @using System.Reflection.Metadata.Ecma335
+@using Microsoft.Extensions.Options
+@using UIArtify.Configurations
 
 @inject HttpClient Http
 @inject IJSRuntime JsRuntime
+@inject IOptions<Api> ApiConfigurations
 
 <style>
     
@@ -24,7 +27,7 @@
    
     color: #FFFFFF;
     text-decoration: none;
-    font-size: 2rem;
+    font-size: 1rem;
     background: rgba(51, 51, 51, 0.85);
     
     backdrop-filter: blur(10px);
@@ -37,8 +40,9 @@
 <nav>
     
     <ul class="nav-links top-level-menu">
-        <li>
-            <div class="col-md-1 ">
+        <li style="margin-left:0;!important
+                   margin:auto;!important;">
+            <div class="col " >
                 <div @onmouseover="Projects" class="btn-toolbar">
                     
                     File
@@ -48,7 +52,7 @@
                 <li>New Notebook</li>
                 <li>Open
                     <ul class="third-level-menu">
-                        <li>New Notebook</li>
+                        <li>Open...</li>
                         <div class="file-line"></div>
                         @((MarkupString)FileContext)
                         </ul>
@@ -60,30 +64,30 @@
                 <li>Exit</li>
             </ul>
         </li>
-        <li>
-            <div class="col-md-1 ">
+        <li style="margin:auto;!important;">
+            <div class="col ">
                 <div class="btn-toolbar">Edit</div>
             </div>
         </li>
-        <li>
-            <div class="col-md-1">
+        <li style="margin:auto;!important;">
+            <div class="col">
                 <div class="btn-toolbar">View</div>
             </div>
         </li>
-        <li>
-            <div class="col-md-1">
+        <li style="margin:auto;!important;">
+            <div class="col">
                 <div class="btn-toolbar">Insert</div>
             </div>
         </li>
-        <li>
-            <div class="col-md-1">
+        <li style="margin:auto;!important;">
+            <div class="col">
                 <div class="btn-toolbar">Cell</div>
             </div>
         </li>
-        <li><div class="col-md-1">
+        <li style="margin:auto;!important;"><div class="col">
             <div  class="btn-toolbar">Core</div>
         </div></li>
-        <li><div class="col-md-1">
+        <li style="margin:auto;!important;"><div class="col">
             <div id="Help" class="btn-toolbar">Help</div>
         </div></li>
 
@@ -94,8 +98,12 @@
         <div class="line2"></div>
         <div class="line3"></div>
     </div>
-    <div class="square">
-        <div class="triangle-right"></div>
+    <div class="square col d-flex justify-content-center align-self-center  ">
+        <svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin:auto;
+                                                                                                             margin-left: 1.15rem;
+                                                                                                             padding: 0.1rem;">
+                <path d="M15 8.5L0.75 0.272758L0.75 16.7272L15 8.5Z" fill="white" />
+            </svg>
     </div>
 
 
@@ -123,7 +131,7 @@
     async Task Projects()
     {
         var module = await Module_get_project;
-        var path = await Http.GetStringAsync(@"http://localhost:4000/artify/preference");
+        var path = await Http.GetStringAsync(ApiConfigurations.Value.LoadPreference);
         FileContext =await module.InvokeAsync<String>("projects",path);
    
     }

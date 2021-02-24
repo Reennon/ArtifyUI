@@ -20,7 +20,7 @@ nav{
 
 .nav-links{
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     width: 150%;
     z-index: 1;
 
@@ -39,11 +39,10 @@ nav{
     text-decoration:none;
     justify-content: center;
     display: flex;
-    text-align: center;
-    align-items: center;
     letter-spacing: 0.255em;
     color: #000000;
-
+    text-align: unset;
+    align-items: unset;
 }
 
 .burger{
@@ -135,12 +134,15 @@ nav{
 
 .square{
     background: rgba(0, 0, 0, 0.8);
-    height: 4em;
-    width: 4em;
     position: relative;
     top: 0;
     right: 0;
     cursor: pointer;
+    height: 3em;
+    min-width: 3em;
+    max-width: 3em;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 .triangle-right {
     width: 0;
@@ -172,9 +174,14 @@ nav{
    
     color: #FFFFFF;
     text-decoration: none;
-    font-size: 2rem;
     background: rgba(51, 51, 51, 0.85);
-    
+    font-size: 1.3rem;
+    padding-left: 0.8rem;
+    font-family: segoe ui, serif;
+    line-height: 32px;
+    letter-spacing: 0.12em;
+    padding-top: 0.5rem;
+    padding-bottom: 0.12em;
     backdrop-filter: blur(10px);
 }
 .third-level-menu > li:hover {background: rgb(79, 91, 105); }
@@ -187,7 +194,7 @@ nav{
     padding: 0;
     margin: 0;
     display: none;
-    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+    box-shadow: 0px 4px 4px rgb(0 0 0.25);
 }
 
 .second-level-menu > li
@@ -196,11 +203,18 @@ nav{
     height: 3rem;
     color: #FFFFFF;
     
-    font-size: 2rem;
+
     background: rgba(51, 51, 51, 0.85);
     
     backdrop-filter: blur(10px);
-    padding-left: 0.5rem;
+
+    font-size: 1.3rem;
+    padding-left: 0.8rem;
+    font-family: segoe ui, serif;
+    line-height: 32px;
+    letter-spacing: 0.12em;
+    padding-top: 0.5rem;
+    padding-bottom: 0.12em;
 }
 .second-level-menu > li:hover {
     background: rgb(79, 91, 105); }
@@ -209,7 +223,10 @@ nav{
 {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: auto;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.7rem;
 }
 
 .top-level-menu > li
