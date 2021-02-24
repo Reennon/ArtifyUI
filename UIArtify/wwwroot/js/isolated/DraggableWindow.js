@@ -7,7 +7,6 @@
         
         document.getElementById(element.id + "header").onmousedown = dragMouseDown;
     } else {
-        /* otherwise, move the DIV from anywhere inside the DIV:*/
         element.onmousedown = dragMouseDown;
     }
     
@@ -26,13 +25,11 @@
     function elementDrag(e) {
         e = e || window.event;
         e.preventDefault();
-        // calculate the new cursor position:
         element.style.zIndex = "12";
         pos1 = pos3 - e.clientX;
         pos2 = pos4 - e.clientY;
         pos3 = e.clientX;
         pos4 = e.clientY;
-        // set the element's new position:
         
         if(( element.offsetTop >= BaseElement.offsetTop) && ( element.offsetTop + element.offsetHeight <= BaseElement.offsetTop + BaseElement.offsetHeight)) {
             element.style.top = (element.offsetTop - pos2) + "px";
@@ -57,11 +54,11 @@
     }
 
     function closeDragElement() {
-        /* stop moving when mouse button is released:*/
         document.onmouseup = null;
         document.onmousemove = null;
         element.style.zIndex = "10";
     }
+
 }
 
 export function resizeWatcher(id, dotNetObject){
@@ -94,6 +91,4 @@ export function hideWindow(id){
             item.style.height = `${height}px`;
         }
     }, 1)
-    //let item = document.getElementById(id);
-    
 }

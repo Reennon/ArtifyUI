@@ -142,6 +142,7 @@
     overflow-y: scroll;
     overflow-x: hidden;
     min-width: 21rem;
+
     min-height: 35px;
 }
 .scroller{
