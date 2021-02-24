@@ -3,6 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    padding-right: 0.16rem;
 }
 
 nav{
@@ -54,6 +55,7 @@ nav{
     height: 3px;
     margin: 3px;
     background-color: #000000;
+    margin-left: 0;
 }
 
 
