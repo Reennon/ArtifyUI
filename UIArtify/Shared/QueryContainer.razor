@@ -7,6 +7,7 @@
 @inject IOptions<Api> ApiOptions
 @inject IBlazorDownloadFileService BlazorDownloadFileService
 @inject IEditorRefresherService EditorRefresherService
+@inject HttpClient Http
 @implements UIArtify.Interfaces.IQuery
 
 <div class="query-holder">
@@ -37,8 +38,13 @@
                 <div class="query-desc-text">Out[@QueryService.LastQuery]:</div>
                 <div @onclick="@(Close)" style="color:black">Close</div>
             </div>
-            <div class="col-10 bg-black query-text editor-style">
-                
+            <div class="col-10 bg-black query-text editor-style" style="font-family: consolas;!important;
+                                                                        font-size: 0.85rem;!important;
+                                                                        padding-left: 1rem;!important;
+                                                                        overflow: auto;
+                                                                        min-height: 6.875rem;
+                                                                        height: 6.875rem;">
+                @((MarkupString)_queryOutput)
             </div>
         </div>
     </div>
@@ -52,15 +58,25 @@
     public String QueryText { get; set; }
     private Boolean _initial;
     private MonacoEditor _editor;
+    private String _queryOutput;
 
-    void Run()
+
+    async Task Run()
     {
         Console.WriteLine(1);
         Console.WriteLine(QueryService.LastQuery++);
+        var query = QueryService.LastQuery++;
         StateHasChanged();
         _initial = true;
-        _editor.Layout();
-        
+        await _editor.Layout();
+        //var content = new [] {await _editor.GetValue()};
+        await QueryService.Post((query.ToString(), await _editor.GetValue(), "cs"), Http);
+        await QueryService.RunBuild(Http, query.ToString());
+        var result = await QueryService.Output(Http);
+        _queryOutput = result;
+        StateHasChanged();
+    //Console.WriteLine(await _editor.GetValue());
+
     //QueryNumber = ++QueryService.LastQuery;
     }
 
@@ -91,7 +107,8 @@
         {
             AutomaticLayout = true,
             Language = "csharp",
-            Value = "using System;\nusing Artify;\nConsole.WriteLine(\"Say Hello to the Artify!\");",
+            Value = "using System;\nConsole.WriteLine(\"Say Hello to the Artify!\");",
+
             Theme = "vs-dark",
             Minimap = new()
             {

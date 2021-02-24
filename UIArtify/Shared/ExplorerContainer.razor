@@ -1,17 +1,101 @@
-﻿
-<div>
-    <ul>
-        <li class="folder">
-            <div class="arrow-right"></div>
-            FolderFolderFolder
-        </li>
-        <li class="folder">Folder 2Folder 2Folder 2Folder 2</li>
-        <li class="folder">Folder 3</li>
-        <li class="folder">Folder 4</li>
-        <li class="folder">Folder 5</li>
-    </ul>
-</div>
+﻿@using UIArtify.Configurations
+@using Microsoft.Extensions.Options
+
+@inject HttpClient Http
+@inject IJSRuntime JsRuntime
+@inject IOptions<Api> ApiConfigurations
+
+<style>
+
+
+
+.tree {
+    position: relative;
+    flex-direction: column;
+    padding: 10px 20px;
+}
+.tree label {
+    cursor: pointer;
+    display: block;
+
+}
+.tree-item .item{margin-left: 20px;}
+
+
+.tree-cb {
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    margin-right: -1.5rem;
+}
+
+.tree-label {
+    vertical-align: 2px;
+    font-size: 1.28em;
+    font-family: sans-serif;
+    color: #fff;
+}
+
+.tree-cb:checked + .tree-label {
+    font-size: 1.28em;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.tree-branches {
+    display: none;
+}
+
+.tree-cb:checked + .tree-label + .tree-branches {
+    display: block;
+}
+
+.tree-label::before {
+    background-image: url("data:image/svg+xml,%3Csvg width='58' height='30' viewBox='0 0 58 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='28' width='30' height='30' fill='white'/%3E%3Cpath d='M15 15L0 23.6603V6.33975L15 15Z' fill='white'/%3E%3Crect x='41' width='17' height='8' fill='black' fill-opacity='0.7'/%3E%3C/svg%3E%0A");
+    content: '';
+    display: inline-block;
+    background-repeat: no-repeat;
+    height: 30px;
+    width: 63px;
+    margin-bottom: -0.4rem;
+    margin-right: .6rem;
+    margin-top: 1.5rem;
+    margin-left: 0;
+    /*margin-right: 6px;*/
+}
+
+.tree-cb:checked + .tree-label::before {
+    background-image: url("data:image/svg+xml,%3Csvg width='62' height='30' viewBox='0 0 62 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='32' width='30' height='30' fill='white'/%3E%3Cpath d='M9 25L0.339745 10L17.6603 10L9 25Z' fill='white'/%3E%3Crect x='45' width='17' height='8' fill='black' fill-opacity='0.7'/%3E%3C/svg%3E%0A");
+}
+.tree-item.hour .tree-cb + .tree-label::before {
+    background-image: url("data:image/svg+xml,%3Csvg width='58' height='30' viewBox='0 0 58 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='28' width='30' height='30' fill='white'/%3E%3Cpath d='M15 15L0 23.6603V6.33975L15 15Z' fill='white'/%3E%3Crect x='41' width='17' height='8' fill='black' fill-opacity='0.7'/%3E%3C/svg%3E%0A");
+}
+.tree-item.hour .tree-cb:checked + .tree-label::before {
+    background-image: url("data:image/svg+xml,%3Csvg width='58' height='30' viewBox='0 0 58 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='28' width='30' height='30' fill='white'/%3E%3Cpath d='M15 15L0 23.6603V6.33975L15 15Z' fill='white'/%3E%3Crect x='41' width='17' height='8' fill='black' fill-opacity='0.7'/%3E%3C/svg%3E%0A");
+}
+</style>
+
+@((MarkupString)Html)
+
+
+
+
+
+
 
 @code {
 
+    private string Html = "";
+    private Task<IJSObjectReference> _module;
+    private Task<IJSObjectReference> Module => _module ??= 
+        JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/isolated/explorer.js").AsTask();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var module = await Module;
+        var path = await Http.GetStringAsync(ApiConfigurations.Value.Tree);
+        Html = await module.InvokeAsync<String>("tree",path);
+    }
+
+    
 }

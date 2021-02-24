@@ -1,30 +1,93 @@
 @using System.Reflection.Metadata.Ecma335
+@using Microsoft.Extensions.Options
+@using UIArtify.Configurations
 
-
+@inject HttpClient Http
 @inject IJSRuntime JsRuntime
+@inject IOptions<Api> ApiConfigurations
+
+<style>
+    
+.third-level-menu
+{
+    position: absolute;
+    top: 0;
+    right: -20rem;
+    width: 20rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: none;
+
+}
+
+.third-level-menu > li
+{
+    height: 3rem;
+   
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 1rem;
+    background: rgba(51, 51, 51, 0.85);
+    
+    backdrop-filter: blur(10px);
+    padding-left: 0.5rem;
+}
+.third-level-menu > li:hover {background: rgb(79, 91, 105); }
+
+</style>
 
 <nav>
-
-    <ul class="nav-links">
-        <li><div class="col-md-1 ">
-            <div  class="btn-toolbar">File</div>
-        </div></li>
-        <li><div  class="col-md-1 ">
-            <div   class="btn-toolbar">Edit</div>
-        </div></li>
-        <li><div class="col-md-1">
-            <div  class="btn-toolbar">View</div>
-        </div></li>
-        <li><div class="col-md-1">
-            <div  class="btn-toolbar">Insert</div>
-        </div></li>
-        <li><div class="col-md-1">
-            <div  class="btn-toolbar">Cell</div>
-        </div></li>
-        <li><div class="col-md-1">
+    
+    <ul class="nav-links top-level-menu">
+        <li style="margin-left:0;!important
+                   margin:auto;!important;">
+            <div class="col " >
+                <div @onmouseover="Projects" class="btn-toolbar">
+                    
+                    File
+                </div>
+            </div>
+            <ul class="second-level-menu">
+                <li>New Notebook</li>
+                <li>Open
+                    <ul class="third-level-menu">
+                        <li>Open...</li>
+                        <div class="file-line"></div>
+                        @((MarkupString)FileContext)
+                        </ul>
+                    </li>
+                <li>Save as ...</li>
+                <li>Save all</li>
+                <li>Close</li>
+                <li>Settigs ...</li>
+                <li>Exit</li>
+            </ul>
+        </li>
+        <li style="margin:auto;!important;">
+            <div class="col ">
+                <div class="btn-toolbar">Edit</div>
+            </div>
+        </li>
+        <li style="margin:auto;!important;">
+            <div class="col">
+                <div class="btn-toolbar">View</div>
+            </div>
+        </li>
+        <li style="margin:auto;!important;">
+            <div class="col">
+                <div class="btn-toolbar">Insert</div>
+            </div>
+        </li>
+        <li style="margin:auto;!important;">
+            <div class="col">
+                <div class="btn-toolbar">Cell</div>
+            </div>
+        </li>
+        <li style="margin:auto;!important;"><div class="col">
             <div  class="btn-toolbar">Core</div>
         </div></li>
-        <li><div class="col-md-1">
+        <li style="margin:auto;!important;"><div class="col">
             <div id="Help" class="btn-toolbar">Help</div>
         </div></li>
 
@@ -35,19 +98,14 @@
         <div class="line2"></div>
         <div class="line3"></div>
     </div>
-    <ul class=" nav navbar-nav">
-    <li id="run" >
-        <div>
-            <div class="col">
-                <svg width="75" height="75" viewBox="0 0 75 75" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="132" height="111" transform="matrix(1 0 0 -1 -16 81)" fill="black" fill-opacity="0.8"/>
-                        
-                </svg>
+    <div class="square col d-flex justify-content-center align-self-center  ">
+        <svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin:auto;
+                                                                                                             margin-left: 1.15rem;
+                                                                                                             padding: 0.1rem;">
+                <path d="M15 8.5L0.75 0.272758L0.75 16.7272L15 8.5Z" fill="white" />
+            </svg>
+    </div>
 
-            </div>
-        </div>
-    </li>
-    </ul>
 
 
 </nav>
@@ -55,16 +113,37 @@
 @code
 {
 
-   
-    
+    private String FileContext = "";
     private Task<IJSObjectReference> _module;
+    private Task<IJSObjectReference> _module_get_project;
+    private Task<IJSObjectReference> Module_get_project => _module_get_project ??= JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/isolated/File_project_template.js").AsTask();
     private Task<IJSObjectReference> Module => _module ??= JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/isolated/EditorToolbar.razor.js").AsTask();
     async Task SideBar()
     {
         var module = await Module;
         await module.InvokeVoidAsync("navSlide");
     }
-    
+    async Task Right_click_File()
+    {
+        var module = await Module_get_project;
+        await module.InvokeVoidAsync("right_click");
+    }
+    async Task Projects()
+    {
+        var module = await Module_get_project;
+        var path = await Http.GetStringAsync(ApiConfigurations.Value.LoadPreference);
+        FileContext =await module.InvokeAsync<String>("projects",path);
+   
+    }
+/*
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        var module = await Module_right_click;
+        await module.InvokeVoidAsync("right_click");
+      
+    }
+*/
     
     public async ValueTask DisposeAsync()
     {
@@ -78,4 +157,3 @@
 
 
 }
-

@@ -7,6 +7,7 @@
 @using System.Text
 @using System.Threading
 @using HttpClientService.Blazor
+@using Microsoft.Extensions.Logging
 @using Microsoft.Net.Http.Headers
 @using UIArtify.Interfaces
 @using UIArtify.Services
@@ -14,27 +15,95 @@
 @inject IApiService ApiService
 @inject IJSRuntime JsRuntime
 @inject HttpClient Http
+@inject ILogger<Login> _logger
 
-<div class="container">
-    <h1>Login</h1>
-    <h3>Hello, @Email</h3>
-    <h6>Login route @ApiOptions.Value.Login</h6>
-    <input @bind="PreferenceName"/> preferenceName value: @PreferenceName<br/>
-    <input @bind="Password"/> password value: @Password<br/>
-    <input @bind="Email"/> email value: @Email<br/>
-    <button class="btn btn-primary" @onclick="@(PostLogin)">Login</button>
-    <button class="btn btn-primary" @onclick="@(()=>Console.WriteLine(Logout()))">Logout Service</button>
-    <button class="btn btn-primary" @onclick="@(Smoke)">Smoke</button>
-    @ApiService.HttpClient.DefaultRequestHeaders
-
-    @JsonConvert.SerializeObject(
-        new
-        {
-            preference_name = PreferenceName
-            , email = Email
-            , password = Password
-        })))
+<div class="container-fluid container-fluid-black-main">
+    <div class="page-header-wide">Login</div>
+    <div class="container">
+        <div class="window-holder-markup login-holder">
+            <div class="window-markup login-window-markup">
+                <div class="row row-no-padding no-gutters">
+                    <div class="col-12 login-header input-column">
+                        <span class="login-span-header">Sign in Page</span>
+                    </div>
+                    <div class="col-12 login-enter-email input-column">
+                        <span class="login-span-login">Enter Email</span>
+                        <input @bind="Email" maxlength="22"/>
+                    </div>
+                    <div class="col-12 login-enter-pass input-column">
+                        <span class="login-span-login">Enter Pass</span>
+                        <input @bind="Password" type="@(PassShown?"":"password")" maxlength="21" id="pass"/>
+                        
+                        <span class="login-show-pass" @onclick="ShowPass">
+                            <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <rect width="19" height="19" fill="url(#pattern0)"/>
+                                <defs>
+                                    <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+                                        <use xlink:href="#image0" transform="scale(0.005)"/>
+                                    </pattern>
+                                    <image id="image0" width="200" height="200" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACtWK6eAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFFmlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNi4wLWMwMDIgNzkuMTY0MzUyLCAyMDIwLzAxLzMwLTE1OjUwOjM4ICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgMjEuMSAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDIxLTAxLTAxVDA4OjI2OjQ1KzAyOjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAyMS0wMS0wMVQwODoyNzoxNyswMjowMCIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAyMS0wMS0wMVQwODoyNzoxNyswMjowMCIgZGM6Zm9ybWF0PSJpbWFnZS9wbmciIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDoyM2QxZjAxMi00Mjk4LWQ4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"/>
+                                </defs>
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="col-12 login-buttons input-column">
+                        <span class="item" @onclick="@(PostLogin)">Login</span>
+                        <span class="item">Sign up</span>
+                        <span class="item">Forgot a pass?</span>
+                        
+                    </div>
+                    @if (ResponseCode != null)
+                    {
+                       <div class="col-12 login-buttons input-column">
+                           <span> @ResponseCode </span>
+                       </div> 
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="footer">
+            <div class="row no-gutters">
+                <div class="col">
+                    <div class="logo logo-left" style=" text-align: left; !important;">
+                        <span class="logo-text">ARTIF</span>Y
+                    </div>
+                </div>
+                <div class="col" style="text-align: right">
+                    <a href="https://github.com/Reennon/ArtifyUI" type="_blank" style="border:0; text-decoration:none; outline:none">
+                        <i class="fa fa-github" style="font-size:2.5rem;!important;"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="row no-gutters credentials">
+                2021 (c) Artify Inc.<br>
+                All rights reserved
+            </div>
+        </div>
+    </div>
 </div>
+
+@* <div class="container"> *@
+@*     <h1>Login</h1> *@
+@*     <h3>Hello, @Email</h3> *@
+@*     <h6>Login route @ApiOptions.Value.Login</h6> *@
+@*     <input @bind="PreferenceName"/> preferenceName value: @PreferenceName<br/> *@
+@*     <input @bind="Password"/> password value: @Password<br/> *@
+@*     <input @bind="Email"/> email value: @Email<br/> *@
+@*     <button class="btn btn-primary" @onclick="@(PostLogin)">Login</button> *@
+@*     <button class="btn btn-primary" @onclick="@(()=>Console.WriteLine(Logout()))">Logout Service</button> *@
+@*     <button class="btn btn-primary" @onclick="@(Smoke)">Smoke</button> *@
+@*     @ApiService.HttpClient.DefaultRequestHeaders *@
+@* *@
+@*     @JsonConvert.SerializeObject( *@
+@*         new *@
+@*         { *@
+@*             preference_name = PreferenceName *@
+@*             , email = Email *@
+@*             , password = Password *@
+@*         }))) *@
+@* </div> *@
 
 
 @code {
@@ -42,6 +111,26 @@
     public String PreferenceName;
     public String Password;
     public String Email;
+
+
+    private Boolean PassShown;
+
+    private String ResponseCode;
+
+    
+    private Task<IJSObjectReference> _module;
+    private Task<IJSObjectReference> Module => _module ??= JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/isolated/LoginPass.js").AsTask();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+        var module = await Module;
+    }
+
+    void ShowPass()
+    {
+        PassShown = !PassShown;
+    }
 
     private async Task<HttpResponseMessage> PostLogin()
     {
@@ -54,8 +143,11 @@
                 , password = Password        
             });
         var responseContent = await response.Content.ReadAsStringAsync();
-        Http.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", responseContent.Substring(1,responseContent.Length-3));
-
+        _logger.LogWarning(responseContent);
+        var jsonResponse = JsonConvert.DeserializeObject<Dictionary<String, String>>(responseContent);
+        Http.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", jsonResponse["token"]);
+        Console.WriteLine(response.StatusCode);
+        ResponseCode = response.StatusCode == HttpStatusCode.OK ? "Logged in" : "Wrong Data, try again";
         return response;
     }
 
